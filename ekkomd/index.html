@@ -2,712 +2,634 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Ekko Landing Page</title>
-<meta name="description" content="Ekko listens to the consultation and writes the clinical note. Ambient AI documentation for doctors, in every language your patients speak." />
+<meta name="description" content="Ekko listens to your consultations, in any language, and writes the clinical note before the patient leaves." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<!-- Indic scripts, subset to only the glyphs used on this page -->
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400&family=Noto+Sans+Devanagari:wght@400&family=Noto+Sans+Bengali:wght@400&family=Noto+Sans+Telugu:wght@400&family=Noto+Sans+Kannada:wght@400&family=Noto+Sans+Malayalam:wght@400&family=Noto+Sans+Gujarati:wght@400&family=Noto+Sans+Gurmukhi:wght@400&family=Noto+Naskh+Arabic:wght@400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500&family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500&display=swap" rel="stylesheet" />
+<script>document.documentElement.classList.add('js');</script>
 <style>
+/* Hallmark · v2.0.0 · theme: console (colourway graphite) · deal: manual (scripts not run in this session) · genre: modern-minimal · posture: restrained · shape: Workbench · job: sign up · hero: Stage · nav: edge-aligned, wordmark with log in and one action · footer: colophon block with both offices · signature: one visit, heard in amber and written in cool, built live in the hero · imagery: product sample in hero, switcher, languages and diff (built, data-slot) · brand: no brand lock (user asked for a fresh theme) */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 · weakest: P and H, a feature switcher is a familiar move; every state shows the real record instead of an icon tile, and the diff carries the argument */
+/* Hallmark · waive 37 · Tamil and Devanagari lines in the languages panel need script faces Host Grotesk lacks · they sit in the body stack as fallbacks, never set on their own */
+/* Hallmark · answered F4 · Start free appears twice as the one primary style, hero and close, same action */
+
+/* Layout: one 12-column container capped at 1440, Stage hero (5 + 7), then switcher, split, showcase, statement, rows, band. */
 :root {
-  --paper: #f2efe7;
-  --paper-deep: #e9e4d8;
-  --sheet: #fbfaf6;
-  --ink: #1b1915;
-  --ink-2: #5d574d;
-  --ink-3: #958e81;
-  --rule: #d6cfc0;
-  --rule-soft: #e3ddd0;
-  --signal: #c9431b;      /* recording / attention */
-  --chart: #2d5a45;       /* confirmed, written to chart */
-  --chart-wash: #dfe7dc;
-  --signal-wash: #f4dccf;
+  color-scheme: dark;
+  /* paper ladder, graphite */
+  --color-paper: oklch(17% 0.008 250);
+  --color-paper-2: oklch(21% 0.009 250);
+  --color-paper-3: oklch(13.5% 0.007 250);
+  --color-ink: oklch(95% 0.005 250);
+  --color-ink-2: oklch(83% 0.008 250);
+  --color-muted: oklch(71% 0.01 250);
+  --color-rule: oklch(31% 0.01 250);
+  --color-rule-2: oklch(42% 0.012 250);
+  /* amber is a person, cool is the instrument */
+  --color-accent: oklch(82% 0.15 80);
+  --color-accent-hover: oklch(86% 0.14 82);
+  --color-accent-ink: oklch(18% 0.04 75);
+  --color-accent-soft: oklch(29% 0.05 80);
+  --color-focus: oklch(82% 0.15 80);
+  --color-cool: oklch(77% 0.12 245);
+  --color-cool-soft: oklch(29% 0.05 245);
+  --color-ok: oklch(76% 0.15 150);
+  --color-ok-soft: oklch(24.5% 0.03 150);
+  --color-bad: oklch(70% 0.17 25);
+  --color-bad-soft: oklch(24.5% 0.035 25);
 
-  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
-  --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
-  --indic: "Noto Sans Tamil", "Noto Sans Devanagari", "Noto Sans Bengali", "Noto Sans Telugu", "Noto Sans Kannada", "Noto Sans Malayalam", "Noto Sans Gujarati", "Noto Sans Gurmukhi", "Noto Naskh Arabic";
+  --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Host Grotesk", "Noto Sans Tamil", "Noto Sans Devanagari", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Atkinson Hyperlegible Mono", ui-monospace, monospace;
 
-  --gutter: clamp(16px, 4vw, 48px);
-  --max: 1280px;
+  --text-display: clamp(2.75rem, 5.6vw, 5.25rem);
+  --text-display-s: clamp(2rem, 4vw, 3.75rem);
+  --text-section: clamp(2.125rem, 3.6vw, 3.25rem);
+  --text-title: clamp(1.25rem, 1.8vw, 1.5625rem);
+  --text-lead: clamp(1.125rem, 1.5vw, 1.3125rem);
+  --text-md: 1rem;
+  --text-sm: 0.875rem;
+  --text-reading: clamp(3rem, 6vw, 5rem);
+
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px;
+  --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --section-gap-s: clamp(80px, 9vw, 120px);
+  --section-gap: clamp(96px, 10vw, 144px);
+  --section-gap-l: clamp(112px, 12vw, 176px);
+
+  --container: 1440px;
+  --gutter: clamp(20px, 4.5vw, 64px);
+  --gap-columns: clamp(16px, 2.2vw, 32px);
+  --nav-h: 68px;
+
+  --radius-card: 10px; --radius-pill: 6px; --radius-chip: 4px; --rule-hair: 1px;
+  --tracking-display: -0.03em;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 120ms; --dur-short: 180ms; --dur-long: 420ms;
+
+  --z-base: 1; --z-raised: 10; --z-sticky-nav: 300; --z-toast: 500;
 }
 
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+/* base */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: var(--space-3xl); }
 body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans), var(--indic), sans-serif;
-  font-size: 17px;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  margin: 0; background: var(--color-paper); color: var(--color-ink);
+  font: 400 var(--text-md)/1.55 var(--font-body);
+  font-synthesis: none; -webkit-font-smoothing: antialiased;
 }
+h1, h2, h3 {
+  font-family: var(--font-display); font-weight: 500; letter-spacing: var(--tracking-display);
+  line-height: 1.04; margin: 0; text-wrap: balance; overflow-wrap: break-word; min-width: 0;
+}
+h1 { font-size: var(--text-display); max-width: 16ch; }
+h2 { font-size: var(--text-section); max-width: 18ch; }
+h3 { font-size: var(--text-title); line-height: 1.2; max-width: 40ch; letter-spacing: -0.015em; }
+p { margin: 0; text-wrap: pretty; }
 a { color: inherit; }
-img, svg { display: block; }
-::selection { background: var(--signal); color: var(--sheet); }
+figure { margin: 0; }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.lead { font-size: var(--text-lead); line-height: 1.45; color: var(--color-ink-2); max-width: 44ch; }
+.muted { color: var(--color-muted); }
+.measured { font-family: var(--font-outlier); font-variant-numeric: tabular-nums slashed-zero; }
+.container { width: 100%; max-width: var(--container); margin-inline: auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); background: var(--color-ink); color: var(--color-paper); border-radius: var(--radius-pill); }
+.skip:focus-visible { top: var(--space-md); }
 
-.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
-.mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em; }
-.eyebrow {
-  font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
-  color: var(--ink-2); display: flex; gap: 12px; align-items: baseline;
-}
-.eyebrow b { color: var(--ink); font-weight: 500; }
-
-/* ---------- Nav ---------- */
-.nav {
-  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid transparent;
-  transition: border-color .2s;
-}
-.nav.scrolled { border-bottom-color: var(--rule); }
-.nav .wrap { display: flex; align-items: center; height: 64px; gap: 32px; }
-.logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.logo-word { font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
-.logo svg { width: 18px; height: 18px; color: var(--signal); }
-.nav-links { display: flex; gap: 28px; margin-left: 16px; }
-.nav-links a, .nav-login { text-decoration: none; font-size: 15px; color: var(--ink-2); transition: color .15s; }
-.nav-links a:hover, .nav-login:hover { color: var(--ink); }
-.nav-end { margin-left: auto; display: flex; align-items: center; gap: 24px; }
-
+/* controls */
 .btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  font: 500 15px/1 var(--sans);
-  padding: 13px 18px; border-radius: 999px;
-  text-decoration: none; border: 1px solid var(--ink);
-  background: var(--ink); color: var(--sheet);
-  transition: transform .15s ease, background .15s;
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs);
+  min-height: 48px; padding: 0 var(--space-lg);
+  border: var(--rule-hair) solid var(--color-rule-2); border-radius: var(--radius-pill);
+  background: var(--color-paper-2); color: var(--color-ink);
+  font: 500 var(--text-md)/1 var(--font-body); white-space: nowrap; text-decoration: none; cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
 }
-.btn:hover { background: #000; }
+.btn:hover { border-color: var(--color-muted); }
 .btn:active { transform: translateY(1px); }
-.btn .arrow { transition: transform .2s ease; }
-.btn:hover .arrow { transform: translateX(3px); }
-.btn.sm { padding: 10px 14px; font-size: 14px; }
-.btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
-.btn.ghost:hover { border-color: var(--ink); }
-.btn.light { background: var(--sheet); color: var(--ink); border-color: var(--sheet); }
-.btn.light:hover { background: #fff; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn--primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.btn--primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+.btn--sm { min-height: 44px; padding: 0 var(--space-md); font-size: var(--text-sm); }
+.link { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-rule-2); text-underline-offset: 3px; transition: color var(--dur-short) var(--ease-out); }
+.link:hover { color: var(--color-accent); }
 
-/* ---------- Hero ---------- */
-.hero { padding: clamp(48px, 8vw, 104px) 0 0; }
-.hero-top { display: grid; grid-template-columns: 1fr; gap: 28px; }
-.hero h1 {
-  font-family: var(--serif); font-weight: 300;
-  font-size: clamp(46px, 8.4vw, 124px);
-  line-height: 0.96; letter-spacing: -0.035em;
-  margin: 0; max-width: 13ch;
-  font-variation-settings: "opsz" 72;
-}
-.hero h1 em { font-style: italic; font-weight: 300; color: var(--signal); }
-.hero-sub {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end;
-  border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 8px;
-}
-.hero-sub p { margin: 0; font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-2); max-width: 46ch; }
-.hero-sub p strong { color: var(--ink); font-weight: 500; }
-.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-
-/* ---------- Scribe demo ---------- */
-.demo { margin-top: clamp(40px, 6vw, 72px); position: relative; }
-.demo-caption { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; color: var(--ink-3); }
-.sheet {
-  background: var(--sheet);
-  border: 1px solid var(--rule);
-  border-radius: 6px;
-  box-shadow: 0 1px 0 var(--rule-soft), 0 30px 60px -40px rgba(40, 30, 10, .35);
-  overflow: hidden;
-}
-.sheet-head {
-  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-  padding: 14px 20px; border-bottom: 1px solid var(--rule-soft);
-  font-size: 14px;
-}
-.patient { font-weight: 500; }
-.patient-meta { color: var(--ink-3); font-family: var(--mono); font-size: 12px; }
-.rec { margin-left: auto; display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
-.rec-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 0 var(--signal); animation: pulse 1.6s ease-out infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 50%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
-.wave { display: flex; gap: 2px; align-items: center; height: 16px; }
-.wave i { width: 2px; background: var(--ink-2); border-radius: 1px; height: 30%; animation: bar 1s ease-in-out infinite; }
-.wave i:nth-child(2n) { animation-delay: -.3s; } .wave i:nth-child(3n) { animation-delay: -.6s; } .wave i:nth-child(5n) { animation-delay: -.15s; }
-@keyframes bar { 0%,100% { height: 25%; } 50% { height: 100%; } }
-.sheet.paused .wave i, .sheet.paused .rec-dot { animation-play-state: paused; }
-
-.sheet-body { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); min-height: 460px; }
-.col { padding: 22px 24px 28px; }
-.col + .col { border-left: 1px solid var(--rule-soft); background: #f8f6f0; }
-.col-label { display: flex; justify-content: space-between; color: var(--ink-3); margin-bottom: 18px; }
-
-.lines { display: flex; flex-direction: column; gap: 14px; }
-.line { display: grid; grid-template-columns: 34px 1fr; gap: 10px; opacity: 0; transform: translateY(6px); transition: opacity .35s, transform .35s; }
-.line.on { opacity: 1; transform: none; }
-.who { font-family: var(--mono); font-size: 11px; padding-top: 4px; letter-spacing: .04em; }
-.who.dr { color: var(--chart); }
-.who.pt { color: var(--signal); }
-.said { font-size: 16px; line-height: 1.5; }
-.said .tr { display: block; font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-top: 4px; }
-.said mark { background: none; color: inherit; background-image: linear-gradient(var(--signal-wash), var(--signal-wash)); background-size: 0% 100%; background-repeat: no-repeat; transition: background-size .6s ease; padding: 0 1px; border-radius: 2px; }
-.said mark.lit { background-size: 100% 100%; }
-.caret { display: inline-block; width: 7px; height: 1.05em; background: var(--ink); vertical-align: -2px; margin-left: 1px; animation: blink 1s steps(1) infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-
-.note { display: flex; flex-direction: column; gap: 18px; }
-.field { display: grid; grid-template-columns: 22px 1fr; gap: 12px; }
-.field-k { font-family: var(--serif); font-size: 22px; line-height: 1; color: var(--ink-3); font-style: italic; transition: color .3s; }
-.field.has .field-k { color: var(--ink); }
-.field-k + div { min-height: 24px; }
-.field-name { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: .04em; display: block; margin-bottom: 4px; }
-.entry { font-size: 15px; line-height: 1.5; display: block; opacity: 0; transform: translateX(-4px); transition: opacity .4s, transform .4s; }
-.entry.on { opacity: 1; transform: none; }
-.entry.pending { color: var(--ink-3); font-style: italic; font-family: var(--serif); font-size: 16px; }
-.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; padding-top: 18px; border-top: 1px dashed var(--rule); }
 .chip {
-  font-family: var(--mono); font-size: 12px; padding: 6px 10px; border-radius: 4px;
-  border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
-  opacity: 0; transform: translateY(4px); transition: opacity .35s, transform .35s;
-  display: inline-flex; gap: 8px; align-items: center;
+  display: inline-flex; align-items: center; gap: var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs); border: var(--rule-hair) solid var(--color-rule-2); border-radius: var(--radius-chip);
+  font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); white-space: nowrap;
 }
-.chip.on { opacity: 1; transform: none; }
-.chip b { font-weight: 500; color: var(--chart); }
-.demo-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 20px; border-top: 1px solid var(--rule-soft); color: var(--ink-3); }
-.replay { font: inherit; background: none; border: 0; color: var(--ink-2); cursor: pointer; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--rule); }
-.replay:hover { color: var(--ink); text-decoration-color: var(--ink); }
+.chip--cool { background: var(--color-cool-soft); border-color: color-mix(in oklab, var(--color-cool) 35%, var(--color-rule)); color: var(--color-ink); }
+.chip--amber { background: var(--color-accent-soft); border-color: color-mix(in oklab, var(--color-accent) 35%, var(--color-rule)); color: var(--color-ink); }
 
-/* ---------- Sections ---------- */
-section { padding: clamp(80px, 11vw, 160px) 0 0; }
-.sec-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; border-top: 1px solid var(--ink); padding-top: 20px; margin-bottom: clamp(40px, 6vw, 72px); }
-.sec-head h2 {
-  font-family: var(--serif); font-weight: 300; margin: 0;
-  font-size: clamp(34px, 4.6vw, 64px); line-height: 1.02; letter-spacing: -0.03em; max-width: 18ch;
-}
-.sec-head h2 em { font-style: italic; }
+/* nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: var(--z-sticky-nav); background: var(--color-paper); border-bottom: var(--rule-hair) solid var(--color-rule); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: var(--z-sticky-nav); background: var(--color-paper); }
+.nav .container { display: flex; align-items: center; gap: var(--space-lg); min-height: var(--nav-h); }
+.wordmark { font: 500 1.5rem/1 var(--font-display); letter-spacing: -0.03em; text-decoration: none; }
+.nav-end { margin-left: auto; display: flex; align-items: center; gap: var(--space-lg); }
+.nav-end .link { text-decoration: none; color: var(--color-ink-2); }
+.nav-end .link:hover { color: var(--color-ink); }
 
-/* Quote */
-.quote { display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
-.quote blockquote { margin: 0; }
-.quote p {
-  font-family: var(--serif); font-weight: 300; margin: 0;
-  font-size: clamp(28px, 3.6vw, 50px); line-height: 1.14; letter-spacing: -0.02em;
-  text-indent: -0.42em;
-}
-.quote p span { color: var(--signal); }
-.quote footer { margin-top: 28px; display: flex; gap: 14px; align-items: center; font-size: 15px; }
-.quote footer .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--paper-deep); border: 1px solid var(--rule); display: grid; place-items: center; font-family: var(--serif); font-size: 17px; }
-.quote footer small { color: var(--ink-2); display: block; font-size: 14px; }
-.figure { font-family: var(--serif); font-weight: 300; font-size: clamp(64px, 9vw, 128px); line-height: .9; letter-spacing: -0.04em; }
-.figure-note { color: var(--ink-2); font-size: 14px; max-width: 18ch; margin-top: 12px; }
+/* panels: one surface cut by 1px seams */
+.panel { border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); background: var(--color-paper-2); overflow: hidden; min-width: 0; }
+.panel-head { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; padding: var(--space-md) var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.panel-head .title { font-weight: 500; }
+.panel-head .end { margin-left: auto; display: flex; gap: var(--space-sm); align-items: center; }
+.who { font-size: var(--text-sm); font-weight: 500; color: var(--color-accent); }
+.wrote { color: var(--color-cool); }
+.time { font-family: var(--font-outlier); font-size: var(--text-sm); color: var(--color-cool); font-variant-numeric: tabular-nums slashed-zero; }
 
-/* Why: three numbered columns */
-.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
-.why > div { padding: 28px 28px 8px 0; }
-.why > div + div { padding-left: 28px; border-left: 1px solid var(--rule); }
-.why h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.1; letter-spacing: -0.02em; margin: 18px 0 12px; }
-.why p { margin: 0; color: var(--ink-2); font-size: 16px; }
-.why .specimen { margin-top: 28px; }
+/* hero: Stage */
+.hero { padding-block: var(--space-2xl); }
+.hero .container { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-2xl); align-items: center; min-height: calc(100dvh - var(--nav-h) - 2 * var(--space-2xl)); }
+.hero-text { display: grid; gap: var(--space-lg); align-content: center; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.terms { font-size: var(--text-sm); color: var(--color-muted); }
 
-.scripts { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 22px; line-height: 1.5; color: var(--ink); }
-.scripts span { transition: color .2s; }
-.scripts span:hover { color: var(--signal); }
-.compare { font-size: 14px; display: grid; gap: 10px; }
-.compare div { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: baseline; }
-.compare s { color: var(--ink-3); text-decoration-color: var(--signal); font-family: var(--serif); font-style: italic; font-size: 17px; }
-.compare .k { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
-.price { font-family: var(--serif); font-size: 44px; letter-spacing: -0.03em; line-height: 1; font-weight: 300; }
-.price small { font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: .02em; margin-left: 6px; }
+.visit-body { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+.visit-body > * { padding: var(--space-lg); min-width: 0; }
+.visit-body > * + * { border-left: var(--rule-hair) solid var(--color-rule); background: var(--color-paper-3); }
+.pane-label { font-size: var(--text-sm); color: var(--color-muted); margin-bottom: var(--space-md); display: flex; justify-content: space-between; gap: var(--space-sm); }
+ol.said { padding: 0; margin: 0; display: grid; gap: var(--space-md); list-style: none; }
+.said li { display: grid; gap: var(--space-2xs); }
+.said .row { display: flex; justify-content: space-between; gap: var(--space-sm); }
+.said p { line-height: 1.45; }
+.note { display: grid; gap: var(--space-md); margin: 0; }
+.note div { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--space-sm); }
+.note dt { font-weight: 500; color: var(--color-cool); }
+.note dd { margin: 0; line-height: 1.45; }
+.note .measured { color: var(--color-cool); font-size: 0.9375rem; }
+.items { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-md); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
+.visit-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); padding: var(--space-2xs) var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule); font-size: var(--text-sm); color: var(--color-muted); }
+.replay { font: 500 var(--text-sm)/1 var(--font-body); color: var(--color-ink-2); background: none; border: 0; min-height: 44px; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--color-rule-2); text-underline-offset: 3px; transition: color var(--dur-short) var(--ease-out); }
+.replay:hover { color: var(--color-ink); }
+html:not(.js) .replay { display: none; }
 
-/* Features: ledger */
-.ledger { border-top: 1px solid var(--rule); }
-.row {
-  display: grid; grid-template-columns: 220px minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px;
-  padding: 32px 0; border-bottom: 1px solid var(--rule); align-items: start;
-}
-.row .n { font-family: var(--mono); font-size: 12px; color: var(--ink-3); padding-top: 8px; }
-.row h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 10px; }
-.row p { margin: 0; color: var(--ink-2); max-width: 40ch; font-size: 16px; }
-.spec { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 18px; font-size: 14px; }
+/* playback: the record fills as the visit is spoken; complete at rest */
+.js .playing [data-step] { opacity: 0; transform: translateY(6px); }
+.js .playing [data-step].on { opacity: 1; transform: none; transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out); }
 
-.spec-listen { display: flex; align-items: center; gap: 16px; }
-.spec-listen .wave { height: 28px; gap: 3px; flex: 1; }
-.spec-listen .wave i { width: 3px; background: var(--ink); }
-.spec-listen .t { font-family: var(--mono); font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+/* sections */
+section { padding-block: var(--section-gap) 0; }
+.head-split { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--gap-columns); align-items: end; margin-bottom: var(--space-2xl); }
 
-.spec-speakers { display: grid; gap: 10px; }
-.spec-speakers div { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding-left: 12px; border-left: 2px solid; }
-.spec-speakers .d { border-color: var(--chart); }
-.spec-speakers .p { border-color: var(--signal); }
+/* switcher */
+.tabs { display: flex; gap: var(--space-3xs); padding: var(--space-2xs); border: var(--rule-hair) solid var(--color-rule); border-radius: calc(var(--radius-pill) + var(--space-2xs)); background: var(--color-paper-3); width: max-content; max-width: 100%; overflow-x: auto; margin-bottom: var(--space-lg); }
+.tab { min-height: 44px; padding: 0 var(--space-md); border: var(--rule-hair) solid transparent; border-radius: var(--radius-pill); background: none; color: var(--color-muted); font: 500 var(--text-sm)/1 var(--font-body); white-space: nowrap; cursor: pointer; transition: color var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out); }
+.tab:hover { color: var(--color-ink); }
+.tab:active { color: var(--color-ink-2); }
+.tab[aria-selected="true"] { background: var(--color-paper-2); border-color: var(--color-rule-2); color: var(--color-ink); }
+.state { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); min-height: 420px; }
+.state[hidden] { display: none; }
+.state + .state { border-top: var(--rule-hair) solid var(--color-rule); }
+.state > * { padding: var(--space-xl); min-width: 0; }
+.state > * + * { border-left: var(--rule-hair) solid var(--color-rule); background: var(--color-paper-3); }
+.state h3 { margin-bottom: var(--space-sm); }
+.state .copy p { color: var(--color-muted); max-width: 34ch; }
+.reading { font-family: var(--font-outlier); font-size: var(--text-reading); line-height: 1; letter-spacing: -0.04em; color: var(--color-cool); font-variant-numeric: tabular-nums slashed-zero; }
+.reading-cap { color: var(--color-muted); font-size: var(--text-sm); margin-top: var(--space-xs); }
+.listen { display: grid; gap: var(--space-xl); align-content: center; }
+.tbl-wrap { overflow-x: auto; }
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl th { text-align: left; font-weight: 500; font-size: var(--text-sm); color: var(--color-muted); padding: 0 var(--space-md) var(--space-sm) 0; white-space: nowrap; }
+.tbl td { padding: var(--space-md) var(--space-md) var(--space-md) 0; border-top: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.tbl td:first-child { font-weight: 500; white-space: nowrap; }
+.tbl td:last-child { padding-right: 0; }
+.tpl { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--space-xl); }
+.tpl ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-xs); align-content: start; }
+.tpl ul li { padding: var(--space-sm) var(--space-md); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-pill); color: var(--color-ink-2); }
+.tpl ul li[aria-current="true"] { border-color: var(--color-cool); color: var(--color-ink); background: var(--color-cool-soft); }
+.tpl ol { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-sm); align-content: start; }
+.tpl ol li { padding-bottom: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule); display: flex; justify-content: space-between; gap: var(--space-md); }
+.tpl ol li span:last-child { color: var(--color-muted); font-size: var(--text-sm); }
 
-.slip { font-family: var(--mono); font-size: 12.5px; display: grid; gap: 0; }
-.slip div { display: grid; grid-template-columns: 76px 1fr auto; gap: 12px; padding: 8px 0; border-bottom: 1px dotted var(--rule); }
-.slip div:last-child { border-bottom: 0; }
-.slip .k { color: var(--ink-3); }
-.slip .ok { color: var(--chart); }
+/* languages: split */
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-2xl); align-items: center; }
+.split .text { display: grid; gap: var(--space-lg); }
+.lang-cols, .lang-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.lang-cols { border-bottom: var(--rule-hair) solid var(--color-rule); font-size: var(--text-sm); color: var(--color-muted); }
+.lang-cols span { padding: var(--space-sm) var(--space-lg); }
+.lang-cols span + span { border-left: var(--rule-hair) solid var(--color-rule); }
+.lang-row + .lang-row { border-top: var(--rule-hair) solid var(--color-rule); }
+.lang-row > * { padding: var(--space-lg); display: grid; gap: var(--space-xs); align-content: start; min-width: 0; }
+.lang-row > * + * { border-left: var(--rule-hair) solid var(--color-rule); background: var(--color-paper-3); }
+.lang-row .spoken { font-size: var(--text-lead); line-height: 1.5; }
 
-.soap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-.soap div { padding: 6px 12px 4px; border-left: 1px solid var(--rule-soft); }
-.soap div:first-child { border-left: 0; padding-left: 0; }
-.soap b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 30px; line-height: 1; display: block; }
-.soap span { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+/* diff: showcase */
+.diff { width: 100%; border-collapse: collapse; }
+.diff th { text-align: left; font-weight: 500; font-size: var(--text-sm); color: var(--color-muted); padding: var(--space-sm) var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); white-space: nowrap; }
+.diff td { padding: var(--space-md) var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; }
+.diff tr:last-child td { border-bottom: 0; }
+.diff td:first-child { width: 18%; color: var(--color-ink-2); font-weight: 500; }
+.diff .minus { background: var(--color-bad-soft); width: 28%; }
+.diff .minus s { color: var(--color-bad); text-decoration-thickness: 1px; font-family: var(--font-outlier); }
+.diff .plus { background: var(--color-ok-soft); }
+.diff .gut { font-family: var(--font-outlier); margin-right: var(--space-xs); }
+.diff .minus .gut { color: var(--color-bad); }
+.diff .plus .gut { color: var(--color-ok); }
 
-.templates { display: flex; flex-wrap: wrap; gap: 8px; }
-.templates span { border: 1px solid var(--rule); border-radius: 999px; padding: 6px 12px; font-size: 13.5px; background: var(--paper); }
-.templates span.sel { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
-.templates span.add { border-style: dashed; color: var(--ink-2); background: transparent; }
+/* statement */
+.statement .container { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 11fr); gap: var(--gap-columns); }
+.statement .mark { font: 500 var(--text-display)/0.85 var(--font-display); color: var(--color-accent); }
+.statement blockquote { margin: 0; display: grid; gap: var(--space-xl); }
+.statement blockquote p { font: 500 var(--text-display-s)/1.12 var(--font-display); letter-spacing: var(--tracking-display); max-width: 26ch; text-wrap: balance; }
+.statement footer { display: grid; gap: var(--space-3xs); }
+.statement footer span { color: var(--color-muted); }
 
-/* Journal */
-.journal { border-top: 1px solid var(--rule); }
-.post { display: grid; grid-template-columns: 220px minmax(0, 1fr) auto; gap: 32px; padding: 26px 0; border-bottom: 1px solid var(--rule); text-decoration: none; align-items: baseline; }
-.post h3 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.02em; line-height: 1.15; transition: color .2s; }
-.post:hover h3 { color: var(--signal); }
-.post .meta { color: var(--ink-3); }
-.post .go { font-family: var(--mono); font-size: 12px; color: var(--ink-3); transition: transform .2s, color .2s; }
-.post:hover .go { transform: translateX(4px); color: var(--ink); }
+/* rows */
+.rows-wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--gap-columns); align-items: start; }
+.rows { list-style: none; margin: 0; padding: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+.rows a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-xs) var(--space-xl); padding: var(--space-lg) 0; border-bottom: var(--rule-hair) solid var(--color-rule); text-decoration: none; }
+.rows h3 { transition: color var(--dur-short) var(--ease-out); }
+.rows a:hover h3 { color: var(--color-accent); }
+.rows .meta { color: var(--color-muted); font-size: var(--text-sm); }
+.rows time { color: var(--color-muted); font-size: var(--text-sm); white-space: nowrap; grid-row: 1; grid-column: 2; padding-top: var(--space-2xs); }
 
-/* CTA + footer */
-.closing { margin-top: clamp(96px, 12vw, 176px); background: var(--ink); color: var(--sheet); }
-.closing .wrap { padding-top: clamp(64px, 9vw, 120px); padding-bottom: 40px; }
-.closing h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(44px, 7vw, 104px); line-height: .98; letter-spacing: -0.035em; margin: 0; max-width: 14ch; }
-.closing h2 em { color: #f08a63; }
-.closing .lede { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; margin-top: 40px; padding-top: 24px; border-top: 1px solid #3a362f; }
-.closing .lede p { margin: 0; color: #b9b2a4; max-width: 40ch; font-size: 18px; }
+/* close band */
+.band { margin-top: var(--section-gap-l); background: var(--color-paper-3); border-top: var(--rule-hair) solid var(--color-rule); padding-block: var(--section-gap-s); }
+.band .container { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-2xl); align-items: end; }
+.band .text { display: grid; gap: var(--space-lg); }
+.band dl { margin: 0; display: grid; gap: var(--space-md); }
+.band dl div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--space-md); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
+.band dt { color: var(--color-muted); font-size: var(--text-sm); }
+.band dd { margin: 0; }
 
-.foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr; gap: 32px; margin-top: clamp(80px, 10vw, 140px); padding-top: 28px; border-top: 1px solid #3a362f; font-size: 14px; color: #b9b2a4; }
-.foot h4 { margin: 0 0 14px; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .06em; color: #7e776a; }
-.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.foot a { text-decoration: none; transition: color .15s; }
-.foot a:hover { color: var(--sheet); }
+/* footer: colophon block */
+.foot { background: var(--color-paper-3); padding-block: 0 var(--space-xl); }
+.foot .container { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-xl) var(--gap-columns); font-size: var(--text-sm); color: var(--color-muted); }
+.foot .inner { grid-column: 1 / -1; display: grid; grid-template-columns: inherit; gap: inherit; border-top: var(--rule-hair) solid var(--color-rule); padding-top: var(--space-xl); }
+.foot h2 { font: 500 var(--text-sm)/1.4 var(--font-body); letter-spacing: 0; color: var(--color-ink-2); margin-bottom: var(--space-sm); }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-xs); }
+.foot a { text-decoration: none; transition: color var(--dur-short) var(--ease-out); }
+.foot a:hover { color: var(--color-ink); }
 .foot address { font-style: normal; line-height: 1.6; }
-.foot address + h4 { margin-top: 22px; }
-.foot .logo-word { color: var(--sheet); font-size: 30px; }
-.foot .tag { margin-top: 14px; max-width: 26ch; }
-.base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 56px; padding-top: 20px; border-top: 1px solid #3a362f; color: #7e776a; }
-.mark-giant { font-family: var(--serif); font-weight: 300; font-size: clamp(120px, 27vw, 400px); line-height: .78; letter-spacing: -0.05em; color: #26231e; margin-top: 48px; user-select: none; white-space: nowrap; overflow: hidden; }
+.foot address + h2 { margin-top: var(--space-lg); }
+.foot .wordmark { color: var(--color-ink); display: inline-block; margin-bottom: var(--space-sm); }
+.foot .legal { grid-column: 1 / -1; padding-top: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule); display: flex; justify-content: space-between; gap: var(--space-md); flex-wrap: wrap; }
 
-/* ---------- Reveal ---------- */
-/* Sections are visible at rest; only the scribe demo animates. */
-
-/* ---------- Responsive ---------- */
-@media (max-width: 960px) {
-  .nav-links { display: none; }
-  .sec-head, .quote { grid-template-columns: 1fr; gap: 20px; }
-  .row { grid-template-columns: 1fr; gap: 14px; }
-  .row .n { padding-top: 0; }
-  .post { grid-template-columns: 1fr auto; gap: 8px 16px; }
-  .post .meta { grid-column: 1 / -1; order: -1; }
-  .why { grid-template-columns: 1fr; }
-  .why > div, .why > div + div { padding: 28px 0; border-left: 0; }
-  .why > div + div { border-top: 1px solid var(--rule); }
-  .foot { grid-template-columns: 1fr 1fr; }
+/* responsive */
+@media (max-width: 60rem) {
+  .hero .container, .split, .head-split, .rows-wrap, .band .container { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: var(--space-xl); }
+  .statement .container { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .state { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .state > * + * { border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+  .state > * { padding: var(--space-lg); }
+  .foot .container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 720px) {
-  .hero-sub { grid-template-columns: 1fr; }
-  .sheet-body { grid-template-columns: 1fr; }
-  .col + .col { border-left: 0; border-top: 1px solid var(--rule-soft); }
-  .nav-login { display: none; }
-  .demo-caption span:last-child, .hero .eyebrow span { display: none; }
-  .soap b { font-size: 24px; }
-  .foot { grid-template-columns: 1fr; }
+@media (max-width: 40rem) {
+  .nav-end .link { display: none; }
+  .visit-body, .lang-row, .lang-cols, .tpl { grid-template-columns: minmax(0, 1fr); }
+  .visit-body > * + *, .lang-row > * + * { border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+  .lang-cols span + span { display: none; }
+  .diff thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .diff, .diff tbody, .diff tr, .diff td { display: block; width: auto; }
+  .diff tr + tr { border-top: var(--rule-hair) solid var(--color-rule); }
+  .diff td { border-bottom: 0; padding: var(--space-sm) var(--space-md); }
+  .diff td:first-child { width: auto; padding-top: var(--space-md); }
+  .diff .minus { width: auto; }
+  .foot .container { grid-template-columns: minmax(0, 1fr); }
+  .rows a { grid-template-columns: minmax(0, 1fr); }
+  .rows time { grid-row: auto; grid-column: 1; padding-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .btn, .tab, .link, .replay, .rows h3, .foot a { transition: none; }
+  .btn:active { transform: none; }
+  .js .playing [data-step] { opacity: 1; transform: none; transition: none; }
 }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a class="logo" href="#" aria-label="Ekko home">
-      <span class="logo-word">Ekko</span>
-      <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="4" cy="9" r="2" fill="currentColor"/><path d="M8 4.5a6 6 0 0 1 0 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11.5 2a9.5 9.5 0 0 1 0 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".45"/></svg>
-    </a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="https://www.ekkomd.com/about-us">About us</a>
-      <a href="https://www.ekkomd.com/blog">Blog</a>
-      <a href="https://www.ekkomd.com/careers">Careers</a>
-      <a href="https://www.ekkomd.com/contact-us">Contact us</a>
-    </nav>
+<header class="nav">
+  <div class="container">
+    <a class="wordmark" href="#main" aria-label="Ekko, back to top">Ekko</a>
     <div class="nav-end">
-      <a class="nav-login" href="https://www.ekkomd.com/login">Log in</a>
-      <a class="btn sm" href="#start">Try for free</a>
+      <a class="link" href="https://auth.ekkomd.com/u/login/identifier">Log in</a>
+      <a class="btn btn--primary btn--sm" href="https://auth.ekkomd.com/u/signup/identifier">Start free</a>
     </div>
   </div>
 </header>
 
-<main>
-  <!-- Hero -->
+<main id="main">
   <div class="hero">
-    <div class="wrap">
-      <div class="hero-top">
-        <div class="eyebrow rv"><b>Ambient clinical documentation</b><span>for doctors, in every language</span></div>
-        <h1 class="rv">Look at your patient. <em>Ekko</em> writes the note.</h1>
-        <div class="hero-sub rv">
-          <p>Doctors spend more time on paperwork than with patients. Ekko listens to the consultation and turns it into an <strong>accurate, structured note</strong> before the patient has left the room.</p>
-          <div class="hero-cta">
-            <a class="btn" href="#start">Get started for free <span class="arrow">→</span></a>
-            <a class="btn ghost" href="#demo">Watch it work</a>
-          </div>
+    <div class="container">
+      <div class="hero-text">
+        <h1>The visit ends.<br />The note is done.</h1>
+        <p class="lead">Ekko listens to your consultations and writes the clinical note.</p>
+        <div class="actions">
+          <a class="btn btn--primary" href="https://auth.ekkomd.com/u/signup/identifier">Start free</a>
+          <a class="btn" href="https://www.ekkomd.com/contact-us">Talk to the team</a>
         </div>
+        <p class="terms">Free to start. Pricing is set with each practice.</p>
       </div>
 
-      <div class="demo rv" id="demo">
-        <div class="demo-caption mono"><span>Fig. 1 — A consultation, as Ekko hears it and writes it</span><span>Tamil · English</span></div>
-        <div class="sheet" id="sheet">
-          <div class="sheet-head">
-            <span class="patient">Susan Clark</span>
-            <span class="patient-meta">32 · F · Visit 0413</span>
-            <span class="patient-meta">Fri 09:14</span>
-            <div class="rec" aria-live="off">
-              <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-              <span class="rec-dot" aria-hidden="true"></span>
-              <span id="clock">00:00</span>
+      <figure class="panel" id="visit" data-slot="hero-product" data-kind="product" aria-label="Sample visit: the conversation and the note Ekko wrote from it">
+        <div class="panel-head">
+          <span class="title">Visit 0413</span>
+          <span class="muted">Sample patient, 32</span>
+          <span class="end"><span class="chip chip--cool" role="status" id="visit-state">Note ready</span><span class="time" id="visit-clock">03:41</span></span>
+        </div>
+        <div class="visit-body">
+          <div>
+            <div class="pane-label"><span>Conversation</span><span>Tamil and English</span></div>
+            <ol class="said">
+              <li data-step="1"><div class="row"><span class="who">Doctor</span><span class="time">00:04</span></div><p>What brings you in today?</p></li>
+              <li data-step="2"><div class="row"><span class="who">Patient</span><span class="time">00:09</span></div><p>Chest tightness for three days, when I climb stairs.</p></li>
+              <li data-step="3"><div class="row"><span class="who">Patient</span><span class="time">00:31</span></div><p lang="ta">வேகமா நடந்தா கொஞ்சம் மூச்சு வாங்குது.</p></li>
+              <li data-step="4"><div class="row"><span class="who">Doctor</span><span class="time">02:58</span></div><p>Start amlodipine, 5&nbsp;mg once a day. ECG and a blood count, and come back in a week.</p></li>
+            </ol>
+          </div>
+          <div>
+            <div class="pane-label"><span>Note, SOAP</span><span class="wrote">Written by Ekko</span></div>
+            <dl class="note">
+              <div data-step="2"><dt>S</dt><dd>Chest tightness for 3 days, on exertion. Breathless when walking fast.</dd></div>
+              <div data-step="3"><dt>O</dt><dd><span class="measured">BP 138/88 mmHg, HR 82</span></dd></div>
+              <div data-step="4"><dt>A</dt><dd>Exertional chest discomfort. Rule out stable angina.</dd></div>
+              <div data-step="4"><dt>P</dt><dd>ECG, CBC. Amlodipine <span class="measured">5&nbsp;mg</span> once daily. Review in 7 days.</dd></div>
+            </dl>
+            <div class="items" data-step="5" aria-label="Action items">
+              <span class="chip chip--cool">Rx amlodipine</span><span class="chip chip--cool">Lab ECG, CBC</span><span class="chip chip--cool">Follow-up 7 days</span>
             </div>
           </div>
-          <div class="sheet-body">
-            <div class="col">
-              <div class="col-label mono"><span>Transcript</span><span>Live</span></div>
-              <div class="lines" id="lines"></div>
-            </div>
-            <div class="col">
-              <div class="col-label mono"><span>Note · SOAP</span><span id="status">Drafting</span></div>
-              <div class="note">
-                <div class="field" data-f="s"><span class="field-k">S</span><div><span class="field-name">Subjective</span></div></div>
-                <div class="field" data-f="o"><span class="field-k">O</span><div><span class="field-name">Objective</span></div></div>
-                <div class="field" data-f="a"><span class="field-k">A</span><div><span class="field-name">Assessment</span></div></div>
-                <div class="field" data-f="p"><span class="field-k">P</span><div><span class="field-name">Plan</span></div></div>
-                <div class="actions" id="actions" aria-label="Action items"></div>
-              </div>
-            </div>
+        </div>
+        <figcaption class="visit-foot"><span>Sample visit. Nothing typed, nothing dictated.</span><button class="replay" type="button" id="replay">Replay the visit</button></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section aria-labelledby="during">
+    <div class="container">
+      <div class="head-split">
+        <h2 id="during">Five things happen while you talk</h2>
+        <p class="lead">Each one builds the same record, shown here on the sample visit.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="What Ekko does during a visit">
+        <button class="tab" role="tab" type="button" id="t-listen" aria-controls="p-listen" aria-selected="true">Listening</button>
+        <button class="tab" role="tab" type="button" id="t-speak" aria-controls="p-speak" aria-selected="false" tabindex="-1">Speakers</button>
+        <button class="tab" role="tab" type="button" id="t-items" aria-controls="p-items" aria-selected="false" tabindex="-1">Action items</button>
+        <button class="tab" role="tab" type="button" id="t-sum" aria-controls="p-sum" aria-selected="false" tabindex="-1">Summary</button>
+        <button class="tab" role="tab" type="button" id="t-tpl" aria-controls="p-tpl" aria-selected="false" tabindex="-1">Templates</button>
+      </div>
+
+      <div class="panel" data-slot="switcher-product" data-kind="product">
+        <div class="state" role="tabpanel" id="p-listen" aria-labelledby="t-listen" tabindex="0">
+          <div class="copy"><h3>Real-time ambient scribing</h3><p>Hands-free, live note creation during the consultation. No dictation, no typing.</p></div>
+          <div class="listen">
+            <div><div class="reading">04:12</div><p class="reading-cap">Listening, consultation in progress</p></div>
+            <ol class="said">
+              <li><div class="row"><span class="who">Patient</span><span class="time">04:09</span></div><p>Is it something serious?</p></li>
+              <li><div class="row"><span class="who">Doctor</span><span class="time">04:12</span></div><p>Let’s see what the ECG says first.</p></li>
+            </ol>
           </div>
-          <div class="demo-foot mono">
-            <span>Nothing typed. Nothing dictated.</span>
-            <button class="replay" id="replay" type="button">Replay</button>
+        </div>
+
+        <div class="state" role="tabpanel" id="p-speak" aria-labelledby="t-speak" tabindex="0">
+          <div class="copy"><h3>Speaker differentiation</h3><p>Doctor and patient dialogue is separated automatically, so every line in the record has an owner.</p></div>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th scope="col">Speaker</th><th scope="col">Said</th><th scope="col">At</th></tr></thead>
+              <tbody>
+                <tr><td class="who">Doctor</td><td>Does the pain get worse when you exercise?</td><td class="time">00:22</td></tr>
+                <tr><td class="who">Patient</td><td>Yes, especially on the stairs at work.</td><td class="time">00:26</td></tr>
+                <tr><td class="who">Doctor</td><td>Any pain at rest, or at night?</td><td class="time">00:40</td></tr>
+                <tr><td class="who">Patient</td><td>No, only when I am moving.</td><td class="time">00:44</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="state" role="tabpanel" id="p-items" aria-labelledby="t-items" tabindex="0">
+          <div class="copy"><h3>Auto action items</h3><p>Prescriptions, follow-ups, lab orders and patient instructions are picked out as they are said.</p></div>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th scope="col">Type</th><th scope="col">Item</th><th scope="col">Heard at</th></tr></thead>
+              <tbody>
+                <tr><td>Prescription</td><td>Amlodipine <span class="measured">5&nbsp;mg</span>, once daily, 30 days</td><td class="time">02:58</td></tr>
+                <tr><td>Lab order</td><td>ECG, complete blood count</td><td class="time">03:04</td></tr>
+                <tr><td>Follow-up</td><td>Review in 7 days with results</td><td class="time">03:10</td></tr>
+                <tr><td>Instruction</td><td>Avoid heavy exertion until review</td><td class="time">03:15</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="state" role="tabpanel" id="p-sum" aria-labelledby="t-sum" tabindex="0">
+          <div class="copy"><h3>Intelligent summaries</h3><p>Symptoms, diagnoses and care plans, outlined and ready to sign instead of ready to rewrite.</p></div>
+          <div>
+            <dl class="note">
+              <div><dt>S</dt><dd>Chest tightness for 3 days on exertion, worse on stairs. Mild breathlessness walking fast. No pain at rest.</dd></div>
+              <div><dt>O</dt><dd><span class="measured">BP 138/88 mmHg, HR 82, SpO2 98%</span></dd></div>
+              <div><dt>A</dt><dd>Exertional chest discomfort. Rule out stable angina.</dd></div>
+              <div><dt>P</dt><dd>ECG, CBC. Amlodipine <span class="measured">5&nbsp;mg</span> once daily. Avoid exertion. Review in 7 days.</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="state" role="tabpanel" id="p-tpl" aria-labelledby="t-tpl" tabindex="0">
+          <div class="copy"><h3>Customizable templates</h3><p>From SOAP notes to specialty formats, the note follows the way your practice already writes.</p></div>
+          <div class="tpl">
+            <ul aria-label="Templates">
+              <li>SOAP</li>
+              <li aria-current="true">Cardiology follow-up</li>
+              <li>Pediatrics</li>
+              <li>Your own format</li>
+            </ul>
+            <ol aria-label="Sections in this template">
+              <li><span>Presenting complaint</span><span>Required</span></li>
+              <li><span>Cardiac history</span><span>Required</span></li>
+              <li><span>Vitals and ECG</span><span>Required</span></li>
+              <li><span>Medication changes</span><span>Optional</span></li>
+              <li><span>Plan and review date</span><span>Required</span></li>
+            </ol>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Testimonial -->
-  <section>
-    <div class="wrap quote rv">
-      <div>
-        <div class="figure">½</div>
-        <div class="figure-note">the documentation time, by one family physician’s count.</div>
+  <section aria-labelledby="lang">
+    <div class="container split">
+      <div class="text">
+        <h2 id="lang">Many languages, one English note</h2>
+        <p class="lead">Patients switch languages mid-sentence. Ekko follows them and charts it all in one record.</p>
       </div>
+      <figure class="panel" data-slot="languages-product" data-kind="product" aria-label="Sample lines in Tamil and Hindi with the note Ekko wrote">
+        <div class="lang-cols"><span>Said in the room</span><span>Written to the note</span></div>
+        <div class="lang-row">
+          <div><span class="who">Patient, Tamil and English</span><p class="spoken" lang="ta">நெஞ்சு வலிக்குது, especially stairs ஏறும்போது.</p></div>
+          <div><span class="who wrote">Subjective</span><p>Chest pain on climbing stairs.</p></div>
+        </div>
+        <div class="lang-row">
+          <div><span class="who">Patient, Hindi</span><p class="spoken" lang="hi">रात को साँस फूलती है।</p></div>
+          <div><span class="who wrote">Subjective</span><p>Breathless at night.</p></div>
+        </div>
+        <div class="lang-row">
+          <div><span class="who">Doctor, English</span><p class="spoken">Any swelling in the ankles?</p></div>
+          <div><span class="who wrote">Review of systems</span><p>Asked about ankle swelling.</p></div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="before">
+    <div class="container">
+      <div class="head-split">
+        <h2 id="before">What the chart used to say</h2>
+        <p class="lead">Handwritten records miss details and EMR forms add friction. Here is one visit, both ways.</p>
+      </div>
+      <div class="panel tbl-wrap" data-slot="diff-product" data-kind="product">
+        <table class="diff">
+          <thead><tr><th scope="col">Field</th><th scope="col">Handwritten card</th><th scope="col">Ekko note</th></tr></thead>
+          <tbody>
+            <tr><td>Complaint</td><td class="minus"><span class="gut" aria-hidden="true">−</span><s>c/o CP</s></td><td class="plus"><span class="gut" aria-hidden="true">+</span>Chest tightness for 3 days, on exertion</td></tr>
+            <tr><td>History</td><td class="minus"><span class="gut" aria-hidden="true">−</span><s>SOB?</s></td><td class="plus"><span class="gut" aria-hidden="true">+</span>Breathless when walking fast. No pain at rest. No ankle swelling.</td></tr>
+            <tr><td>Vitals</td><td class="minus"><span class="gut" aria-hidden="true">−</span><s>BP 138/88</s></td><td class="plus"><span class="gut" aria-hidden="true">+</span><span class="measured">BP 138/88 mmHg, HR 82, SpO2 98%</span></td></tr>
+            <tr><td>Plan</td><td class="minus"><span class="gut" aria-hidden="true">−</span><s>ECG, amlo</s></td><td class="plus"><span class="gut" aria-hidden="true">+</span>ECG, CBC. Amlodipine <span class="measured">5&nbsp;mg</span> once daily, 30 days.</td></tr>
+            <tr><td>Follow-up</td><td class="minus"><span class="gut" aria-hidden="true">−</span><s>r/v</s></td><td class="plus"><span class="gut" aria-hidden="true">+</span>Review in 7 days with results</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement" aria-label="What a doctor said">
+    <div class="container">
+      <div class="mark" aria-hidden="true">“</div>
       <blockquote>
-        <p><span>“</span>Ekko has cut our documentation time in half. What used to take hours after clinic now happens automatically in the background. It’s like having a medically trained assistant.”</p>
-        <footer>
-          <span class="avatar" aria-hidden="true">AP</span>
-          <span>Dr. Arjun Patel<small>Family physician</small></span>
-        </footer>
+        <p>Ekko has cut our documentation time in half. What used to take hours after clinic now happens automatically in the background.</p>
+        <footer><strong>Dr. Arjun Patel</strong><span>Family physician</span></footer>
       </blockquote>
     </div>
   </section>
 
-  <!-- Why -->
-  <section id="why">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="eyebrow"><b>§ 1</b><span>Why Ekko</span></div>
-        <h2>Built for the clinic as it actually <em>is</em>.</h2>
-      </div>
-      <div class="why">
-        <div class="rv">
-          <div class="eyebrow"><b>01</b><span>The documentation gap</span></div>
-          <h3>Paper misses detail. EMRs add friction.</h3>
-          <p>Handwritten records lose what was said; EMR screens pull attention away from the patient. Ekko turns the conversation itself into the digital record.</p>
-          <div class="specimen compare">
-            <div><span class="k">Handwritten</span><s>c/o CP, ?SOB, f/u</s></div>
-            <div><span class="k">Ekko</span><span>Exertional chest tightness × 3 days; mild breathlessness walking fast. Follow-up in 7 days.</span></div>
-          </div>
-        </div>
-        <div class="rv">
-          <div class="eyebrow"><b>02</b><span>Multilingual by design</span></div>
-          <h3>Patients speak in many tongues, often in one visit.</h3>
-          <p>Ekko captures and documents conversations across languages, even when they are mixed mid-sentence.</p>
-          <div class="specimen scripts" aria-label="Languages">
-            <span>English</span><span lang="ta">தமிழ்</span><span lang="hi">हिन्दी</span><span lang="bn">বাংলা</span><span lang="te">తెలుగు</span><span lang="kn">ಕನ್ನಡ</span><span lang="ml">മലയാളം</span><span lang="mr">मराठी</span><span lang="gu">ગુજરાતી</span><span lang="pa">ਪੰਜਾਬੀ</span><span lang="ur" dir="rtl">اردو</span>
-          </div>
-        </div>
-        <div class="rv">
-          <div class="eyebrow"><b>03</b><span>Affordable for every practitioner</span></div>
-          <h3>Priced around your practice, not a hospital budget.</h3>
-          <p>Custom pricing brings ambient AI within reach of every doctor, from a single-room clinic to a multi-specialty group.</p>
-          <div class="specimen">
-            <div class="price">Your price<small>set with you</small></div>
-            <a class="btn ghost sm" href="https://www.ekkomd.com/contact-us" style="margin-top:18px">Book a demo <span class="arrow">→</span></a>
-          </div>
-        </div>
-      </div>
+  <section aria-labelledby="writing">
+    <div class="container rows-wrap">
+      <h2 id="writing">Why Ekko works this way</h2>
+      <ul class="rows">
+        <li><a href="https://www.ekkomd.com/blog/your-patient-never-agreed-to-train-a-chatbot"><h3>Your patient never agreed to train a chatbot</h3><time datetime="2026-10-07">7 Oct 2026</time><span class="meta">8 minute read</span></a></li>
+        <li><a href="https://www.ekkomd.com/blog/most-ai-scribes-are-just-better-dictation"><h3>Most AI scribes are just better dictation</h3><time datetime="2026-09-09">9 Sep 2026</time><span class="meta">6 minute read</span></a></li>
+        <li><a href="https://www.ekkomd.com/blog/ekko-is-live-our-ambient-ai-platform-giving-indias-doctors-their-time-back"><h3>Ekko is live, and giving doctors their time back</h3><time datetime="2026-03-25">25 Mar 2026</time><span class="meta">9 minute read</span></a></li>
+      </ul>
     </div>
   </section>
 
-  <!-- Features -->
-  <section id="features">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="eyebrow"><b>§ 2</b><span>Key features</span></div>
-        <h2>From conversation to chart, <em>in five steps</em> you never see.</h2>
+  <div class="band">
+    <div class="container">
+      <div class="text">
+        <h2>Start with your next patient</h2>
+        <p class="lead">Built by doctors, for real clinics. Pricing is set around your practice.</p>
+        <div class="actions"><a class="btn btn--primary" href="https://auth.ekkomd.com/u/signup/identifier">Start free</a></div>
       </div>
-      <div class="ledger">
-        <div class="row rv">
-          <div class="n">01 — Listen</div>
-          <div><h3>Real-time ambient scribing</h3><p>Hands-free, live note creation during the consultation. No dictation, no wake word, no laptop between you and the patient.</p></div>
-          <div class="spec spec-listen" aria-hidden="true">
-            <span class="rec-dot"></span>
-            <span class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-            <span class="t">Listening · 04:12</span>
-          </div>
-        </div>
-        <div class="row rv">
-          <div class="n">02 — Separate</div>
-          <div><h3>Speaker differentiation</h3><p>Practitioner and patient dialogue is separated automatically, so the record reads cleanly and attributes every statement.</p></div>
-          <div class="spec spec-speakers">
-            <div class="d"><span class="who dr">DR</span><span>Does the pain get worse when you exercise?</span></div>
-            <div class="p"><span class="who pt">PT</span><span>Yes, especially when I climb stairs.</span></div>
-          </div>
-        </div>
-        <div class="row rv">
-          <div class="n">03 — Extract</div>
-          <div><h3>Auto action items</h3><p>Prescriptions, follow-ups, lab orders and patient instructions are picked out of the conversation the moment they are said.</p></div>
-          <div class="spec slip">
-            <div><span class="k">Rx</span><span>Amlodipine 5 mg · once daily · 30 days</span><span class="ok">✓</span></div>
-            <div><span class="k">Lab</span><span>ECG, complete blood count</span><span class="ok">✓</span></div>
-            <div><span class="k">Follow-up</span><span>7 days</span><span class="ok">✓</span></div>
-            <div><span class="k">Advice</span><span>Avoid exertion until review</span><span class="ok">✓</span></div>
-          </div>
-        </div>
-        <div class="row rv">
-          <div class="n">04 — Summarize</div>
-          <div><h3>Intelligent summaries</h3><p>Symptoms, diagnoses and care plans are organized and neatly outlined, ready to sign rather than ready to rewrite.</p></div>
-          <div class="spec soap">
-            <div><b>S</b><span>Symptoms</span></div>
-            <div><b>O</b><span>Findings</span></div>
-            <div><b>A</b><span>Diagnosis</span></div>
-            <div><b>P</b><span>Care plan</span></div>
-          </div>
-        </div>
-        <div class="row rv">
-          <div class="n">05 — Fit</div>
-          <div><h3>Customizable templates</h3><p>From SOAP notes to specialty formats, documentation fits the way your practice already works.</p></div>
-          <div class="spec templates">
-            <span class="sel">SOAP</span><span>Follow-up</span><span>Pediatrics</span><span>Gynecology</span><span>Orthopedics</span><span>Psychiatry intake</span><span class="add">+ Your own</span>
-          </div>
-        </div>
-      </div>
+      <dl>
+        <div><dt>Email</dt><dd>info@ekkomd.com</dd></div>
+        <div><dt>Phone</dt><dd class="measured">+91 95009 95295</dd></div>
+        <div><dt>Questions</dt><dd><a class="link" href="https://www.ekkomd.com/contact-us">Contact the team</a></dd></div>
+      </dl>
     </div>
-  </section>
-
-  <!-- Journal -->
-  <section id="journal">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="eyebrow"><b>§ 3</b><span>From the blog</span></div>
-        <h2>Notes on AI, privacy and <em>the craft of care</em>.</h2>
-      </div>
-      <div class="journal">
-        <a class="post rv" href="https://www.ekkomd.com/blog">
-          <span class="meta mono">Updates · Oct 7, 2026 · 8 min</span>
-          <h3>Your patient never agreed to train a chatbot</h3>
-          <span class="go">Read →</span>
-        </a>
-        <a class="post rv" href="https://www.ekkomd.com/blog">
-          <span class="meta mono">Features · Sep 9, 2026 · 6 min</span>
-          <h3>Most AI scribes are just better dictation</h3>
-          <span class="go">Read →</span>
-        </a>
-        <a class="post rv" href="https://www.ekkomd.com/blog">
-          <span class="meta mono">Announcements · Mar 25, 2026 · 9 min</span>
-          <h3>Ekko is live: our ambient AI platform is giving doctors their time back</h3>
-          <span class="go">Read →</span>
-        </a>
-      </div>
-    </div>
-  </section>
+  </div>
 </main>
 
-<!-- Closing + footer -->
-<footer class="closing" id="start">
-  <div class="wrap">
-    <div class="eyebrow" style="color:#7e776a"><b style="color:#b9b2a4">Secure, AI-powered clinical notes</b></div>
-    <h2 style="margin-top:20px">Give the hour after clinic <em>back</em>.</h2>
-    <div class="lede">
-      <p>Built by doctors. Designed for real-world care. Start free, and see your first note write itself today.</p>
-      <div class="hero-cta">
-        <a class="btn light" href="https://www.ekkomd.com/login">Try Ekko for free <span class="arrow">→</span></a>
-        <a class="btn ghost" style="color:var(--sheet);border-color:#3a362f" href="https://www.ekkomd.com/contact-us">Talk to us</a>
-      </div>
-    </div>
-
-    <div class="foot">
+<footer class="foot">
+  <div class="container">
+    <div class="inner">
       <div>
-        <span class="logo-word">Ekko</span>
-        <p class="tag">Ambient AI clinical documentation for doctors.</p>
+        <a class="wordmark" href="#main" aria-label="Ekko, back to top">Ekko</a>
+        <p>Ambient clinical documentation for doctors.</p>
       </div>
       <div>
-        <h4>Company</h4>
+        <h2>Company</h2>
         <ul>
           <li><a href="https://www.ekkomd.com/about-us">About us</a></li>
           <li><a href="https://www.ekkomd.com/blog">Blog</a></li>
           <li><a href="https://www.ekkomd.com/careers">Careers</a></li>
           <li><a href="https://www.ekkomd.com/contact-us">Contact us</a></li>
-          <li><a href="https://www.ekkomd.com/login">Log in</a></li>
         </ul>
       </div>
       <div>
-        <h4>Legal</h4>
+        <h2>Legal</h2>
         <ul>
-          <li><a href="#">DPA</a></li>
-          <li><a href="#">Terms of use and service</a></li>
-          <li><a href="#">Privacy policy</a></li>
-          <li><a href="#">Cancellation and refund</a></li>
-          <li><a href="#">Shipping</a></li>
+          <li><a href="https://www.ekkomd.com/dpa">DPA</a></li>
+          <li><a href="https://www.ekkomd.com/terms-of-service">Terms of service</a></li>
+          <li><a href="https://www.ekkomd.com/privacy-policy">Privacy policy</a></li>
+          <li><a href="https://www.ekkomd.com/cancellation-refund">Cancellation and refund</a></li>
+          <li><a href="https://www.ekkomd.com/shipping">Shipping</a></li>
         </ul>
       </div>
       <div>
-        <h4>US office</h4>
+        <h2>US office</h2>
         <address>1795 Landana Dr<br />Concord, CA 94519</address>
-        <h4>India office</h4>
+        <h2>India office</h2>
         <address>70A, New. 116B, Vellalar Street<br />Mogappair, Chennai 600037</address>
-        <h4>Reach us</h4>
-        <address><a href="mailto:info@ekkomd.com">info@ekkomd.com</a><br /><a href="tel:+919500995295">+91 95009 95295</a></address>
       </div>
+      <div class="legal"><span>© 2026 Ekko</span><span>Concord and Chennai</span></div>
     </div>
-    <div class="base mono"><span>© 2026 Ekko. All rights reserved.</span><span>Concord · Chennai</span></div>
-    <div class="mark-giant" aria-hidden="true">ekko</div>
   </div>
 </footer>
 
 <script>
 (() => {
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Sticky nav rule
-  const nav = document.getElementById("nav");
-  const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);
-  addEventListener("scroll", onScroll, { passive: true }); onScroll();
-
-  // ---- Scribe demo ----
-  // Each line: speaker, text (with [[marked]] phrases), optional translation,
-  // then what it writes to the note once spoken.
-  const script = [
-    { who: "dr", text: "Good morning. What brings you in today?" },
-    { who: "pt", text: "I’ve had [[chest tightness]] for the [[past three days]], mostly when I [[climb stairs]].",
-      writes: [["s", "Chest tightness × 3 days, on exertion (stairs)."]] },
-    { who: "dr", text: "Any breathlessness?" },
-    { who: "pt", text: "கொஞ்சம் இருக்கு — [[a little, when I walk fast]].", tr: "ta → en · “A little, yes”",
-      writes: [["s", "Mild breathlessness walking briskly."]] },
-    { who: "dr", text: "BP is [[138 over 88]], pulse [[82]]. Let’s get an [[ECG]] and a [[blood count]].",
-      writes: [["o", "BP 138/88 mmHg · HR 82 bpm."], ["a", "Exertional chest discomfort; rule out stable angina."]],
-      chips: [["Lab", "ECG, CBC"]] },
-    { who: "dr", text: "Start [[amlodipine 5 mg once a day]], avoid heavy exertion, and [[come back in a week]].",
-      writes: [["p", "ECG, CBC. Amlodipine 5 mg OD. Avoid exertion. Review in 7 days."]],
-      chips: [["Rx", "Amlodipine 5 mg OD"], ["Follow-up", "7 days"]] },
-  ];
-
-  const linesEl = document.getElementById("lines");
-  const actionsEl = document.getElementById("actions");
-  const statusEl = document.getElementById("status");
-  const clockEl = document.getElementById("clock");
-  const sheet = document.getElementById("sheet");
-  const fields = Object.fromEntries([...document.querySelectorAll(".field")].map((f) => [f.dataset.f, f]));
-
-  const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
-  const markup = (s) => esc(s).replace(/\[\[(.+?)\]\]/g, "<mark>$1</mark>");
-  const plain = (s) => s.replace(/\[\[|\]\]/g, "");
-  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-
-  let run = 0, secs = 0, tick;
-  const fmt = (n) => String(Math.floor(n / 60)).padStart(2, "0") + ":" + String(n % 60).padStart(2, "0");
-
-  function reset() {
-    linesEl.innerHTML = ""; actionsEl.innerHTML = "";
-    Object.values(fields).forEach((f) => {
-      f.classList.remove("has");
-      f.querySelectorAll(".entry").forEach((e) => e.remove());
-      const p = document.createElement("span"); p.className = "entry pending on"; p.textContent = "Listening…";
-      f.lastElementChild.appendChild(p);
+  /* Tabs: ARIA tablist with arrow keys; every state is in the page without script */
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const select = (tab, focus) => {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
     });
-    statusEl.textContent = "Drafting"; secs = 0; clockEl.textContent = fmt(0);
-    sheet.classList.remove("paused");
-  }
-
-  function addLine(l) {
-    const row = document.createElement("div"); row.className = "line";
-    row.innerHTML = `<span class="who ${l.who}">${l.who.toUpperCase()}</span><div class="said"><span class="txt"></span>${l.tr ? `<span class="tr">${esc(l.tr)}</span>` : ""}</div>`;
-    linesEl.appendChild(row);
-    requestAnimationFrame(() => row.classList.add("on"));
-    return row;
-  }
-
-  function write(key, text) {
-    const f = fields[key]; const body = f.lastElementChild;
-    body.querySelectorAll(".pending").forEach((e) => e.remove());
-    const e = document.createElement("span"); e.className = "entry"; e.textContent = text;
-    body.appendChild(e); f.classList.add("has");
-    requestAnimationFrame(() => e.classList.add("on"));
-  }
-  function chip([k, v]) {
-    const c = document.createElement("span"); c.className = "chip";
-    c.innerHTML = `<b>${esc(k)}</b>${esc(v)}`; actionsEl.appendChild(c);
-    requestAnimationFrame(() => c.classList.add("on"));
-  }
-
-  function finish() {
-    clearInterval(tick); statusEl.textContent = "Ready to sign"; sheet.classList.add("paused");
-  }
-
-  function renderStatic() {
-    reset();
-    script.forEach((l) => {
-      const row = addLine(l); row.classList.add("on");
-      row.querySelector(".txt").innerHTML = markup(l.text);
-      row.querySelectorAll("mark").forEach((m) => m.classList.add("lit"));
-      (l.writes || []).forEach(([k, t]) => write(k, t));
-      (l.chips || []).forEach(chip);
+    if (focus) tab.focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t, false));
+    t.addEventListener('keydown', (e) => {
+      const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (k) { e.preventDefault(); select(tabs[(i + k + tabs.length) % tabs.length], true); }
+      if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
+      if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
     });
-    clockEl.textContent = "03:41"; finish();
-    document.querySelectorAll(".entry, .chip").forEach((e) => e.classList.add("on"));
-  }
+  });
+  select(tabs[0], false);
 
-  async function play() {
-    const id = ++run; reset();
-    clearInterval(tick); tick = setInterval(() => { secs += 7; clockEl.textContent = fmt(secs); }, 1000);
-    await wait(500);
-    for (const l of script) {
-      if (id !== run) return;
-      const row = addLine(l); const txt = row.querySelector(".txt");
-      const full = plain(l.text);
-      for (let i = 1; i <= full.length; i += 2) {
-        if (id !== run) return;
-        txt.innerHTML = esc(full.slice(0, i)) + '<span class="caret"></span>';
-        await wait(l.who === "pt" ? 26 : 20);
-      }
-      txt.innerHTML = markup(l.text);
-      await wait(120);
-      txt.querySelectorAll("mark").forEach((m, i) => setTimeout(() => m.classList.add("lit"), i * 120));
-      await wait(380);
-      for (const [k, t] of l.writes || []) { if (id !== run) return; write(k, t); await wait(260); }
-      for (const c of l.chips || []) { if (id !== run) return; chip(c); await wait(180); }
-      await wait(650);
+  /* Hero playback: the record fills as the visit is spoken, once, under 5 seconds */
+  const visit = document.getElementById('visit');
+  const state = document.getElementById('visit-state');
+  const clock = document.getElementById('visit-clock');
+  const steps = [...visit.querySelectorAll('[data-step]')];
+  const stamps = ['00:04', '00:09', '00:31', '02:58', '03:41'];
+  let timers = [];
+
+  const play = () => {
+    timers.forEach(clearTimeout); timers = [];
+    if (reduce) return;
+    visit.classList.add('playing');
+    steps.forEach((s) => s.classList.remove('on'));
+    state.textContent = 'Listening';
+    state.className = 'chip chip--amber';
+    clock.textContent = '00:00';
+    for (let n = 1; n <= 5; n++) {
+      timers.push(setTimeout(() => {
+        steps.filter((s) => s.dataset.step === String(n)).forEach((s) => s.classList.add('on'));
+        clock.textContent = stamps[n - 1];
+        if (n === 5) { state.textContent = 'Note ready'; state.className = 'chip chip--cool'; }
+      }, 250 + (n - 1) * 850));
     }
-    if (id === run) finish();
+  };
+
+  document.getElementById('replay').addEventListener('click', play);
+  if (!reduce) {
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { play(); io.disconnect(); } }, { threshold: 0.4 });
+    io.observe(visit);
   }
-
-  document.getElementById("replay").addEventListener("click", () => (reduce ? renderStatic() : play()));
-
-  if (reduce) { renderStatic(); return; }
-  // Start when the demo scrolls into view
-  let started = false;
-  new IntersectionObserver((es, obs) => {
-    if (!started && es[0].isIntersecting) { started = true; play(); obs.disconnect(); }
-  }, { threshold: 0.12 }).observe(sheet);
 })();
 </script>
 </body>
