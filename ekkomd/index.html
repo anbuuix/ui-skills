@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ekko — Ambient clinical documentation</title>
+<meta name="description" content="Ekko listens to the consultation and writes the clinical note. Ambient AI documentation for doctors, in every language your patients speak." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<!-- Indic scripts, subset to only the glyphs used on this page -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400&family=Noto+Sans+Devanagari:wght@400&family=Noto+Sans+Bengali:wght@400&family=Noto+Sans+Telugu:wght@400&family=Noto+Sans+Kannada:wght@400&family=Noto+Sans+Malayalam:wght@400&family=Noto+Sans+Gujarati:wght@400&family=Noto+Sans+Gurmukhi:wght@400&family=Noto+Naskh+Arabic:wght@400&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --paper: #f2efe7;
+  --paper-deep: #e9e4d8;
+  --sheet: #fbfaf6;
+  --ink: #1b1915;
+  --ink-2: #5d574d;
+  --ink-3: #958e81;
+  --rule: #d6cfc0;
+  --rule-soft: #e3ddd0;
+  --signal: #c9431b;      /* recording / attention */
+  --chart: #2d5a45;       /* confirmed, written to chart */
+  --chart-wash: #dfe7dc;
+  --signal-wash: #f4dccf;
+
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --indic: "Noto Sans Tamil", "Noto Sans Devanagari", "Noto Sans Bengali", "Noto Sans Telugu", "Noto Sans Kannada", "Noto Sans Malayalam", "Noto Sans Gujarati", "Noto Sans Gurmukhi", "Noto Naskh Arabic";
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1280px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans), var(--indic), sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; }
+img, svg { display: block; }
+::selection { background: var(--signal); color: var(--sheet); }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em; }
+.eyebrow {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
+  color: var(--ink-2); display: flex; gap: 12px; align-items: baseline;
+}
+.eyebrow b { color: var(--ink); font-weight: 500; }
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+}
+.nav.scrolled { border-bottom-color: var(--rule); }
+.nav .wrap { display: flex; align-items: center; height: 64px; gap: 32px; }
+.logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-word { font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; }
+.logo svg { width: 18px; height: 18px; color: var(--signal); }
+.nav-links { display: flex; gap: 28px; margin-left: 16px; }
+.nav-links a, .nav-login { text-decoration: none; font-size: 15px; color: var(--ink-2); transition: color .15s; }
+.nav-links a:hover, .nav-login:hover { color: var(--ink); }
+.nav-end { margin-left: auto; display: flex; align-items: center; gap: 24px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 500 15px/1 var(--sans);
+  padding: 13px 18px; border-radius: 999px;
+  text-decoration: none; border: 1px solid var(--ink);
+  background: var(--ink); color: var(--sheet);
+  transition: transform .15s ease, background .15s;
+}
+.btn:hover { background: #000; }
+.btn:active { transform: translateY(1px); }
+.btn .arrow { transition: transform .2s ease; }
+.btn:hover .arrow { transform: translateX(3px); }
+.btn.sm { padding: 10px 14px; font-size: 14px; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
+.btn.ghost:hover { border-color: var(--ink); }
+.btn.light { background: var(--sheet); color: var(--ink); border-color: var(--sheet); }
+.btn.light:hover { background: #fff; }
+
+/* ---------- Hero ---------- */
+.hero { padding: clamp(48px, 8vw, 104px) 0 0; }
+.hero-top { display: grid; grid-template-columns: 1fr; gap: 28px; }
+.hero h1 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(46px, 8.4vw, 124px);
+  line-height: 0.96; letter-spacing: -0.035em;
+  margin: 0; max-width: 13ch;
+  font-variation-settings: "opsz" 72;
+}
+.hero h1 em { font-style: italic; font-weight: 300; color: var(--signal); }
+.hero-sub {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end;
+  border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 8px;
+}
+.hero-sub p { margin: 0; font-size: clamp(17px, 1.6vw, 20px); color: var(--ink-2); max-width: 46ch; }
+.hero-sub p strong { color: var(--ink); font-weight: 500; }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- Scribe demo ---------- */
+.demo { margin-top: clamp(40px, 6vw, 72px); position: relative; }
+.demo-caption { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; color: var(--ink-3); }
+.sheet {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 1px 0 var(--rule-soft), 0 30px 60px -40px rgba(40, 30, 10, .35);
+  overflow: hidden;
+}
+.sheet-head {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  padding: 14px 20px; border-bottom: 1px solid var(--rule-soft);
+  font-size: 14px;
+}
+.patient { font-weight: 500; }
+.patient-meta { color: var(--ink-3); font-family: var(--mono); font-size: 12px; }
+.rec { margin-left: auto; display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+.rec-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 0 var(--signal); animation: pulse 1.6s ease-out infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 50%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
+.wave { display: flex; gap: 2px; align-items: center; height: 16px; }
+.wave i { width: 2px; background: var(--ink-2); border-radius: 1px; height: 30%; animation: bar 1s ease-in-out infinite; }
+.wave i:nth-child(2n) { animation-delay: -.3s; } .wave i:nth-child(3n) { animation-delay: -.6s; } .wave i:nth-child(5n) { animation-delay: -.15s; }
+@keyframes bar { 0%,100% { height: 25%; } 50% { height: 100%; } }
+.sheet.paused .wave i, .sheet.paused .rec-dot { animation-play-state: paused; }
+
+.sheet-body { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); min-height: 460px; }
+.col { padding: 22px 24px 28px; }
+.col + .col { border-left: 1px solid var(--rule-soft); background: #f8f6f0; }
+.col-label { display: flex; justify-content: space-between; color: var(--ink-3); margin-bottom: 18px; }
+
+.lines { display: flex; flex-direction: column; gap: 14px; }
+.line { display: grid; grid-template-columns: 34px 1fr; gap: 10px; opacity: 0; transform: translateY(6px); transition: opacity .35s, transform .35s; }
+.line.on { opacity: 1; transform: none; }
+.who { font-family: var(--mono); font-size: 11px; padding-top: 4px; letter-spacing: .04em; }
+.who.dr { color: var(--chart); }
+.who.pt { color: var(--signal); }
+.said { font-size: 16px; line-height: 1.5; }
+.said .tr { display: block; font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-top: 4px; }
+.said mark { background: none; color: inherit; background-image: linear-gradient(var(--signal-wash), var(--signal-wash)); background-size: 0% 100%; background-repeat: no-repeat; transition: background-size .6s ease; padding: 0 1px; border-radius: 2px; }
+.said mark.lit { background-size: 100% 100%; }
+.caret { display: inline-block; width: 7px; height: 1.05em; background: var(--ink); vertical-align: -2px; margin-left: 1px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.note { display: flex; flex-direction: column; gap: 18px; }
+.field { display: grid; grid-template-columns: 22px 1fr; gap: 12px; }
+.field-k { font-family: var(--serif); font-size: 22px; line-height: 1; color: var(--ink-3); font-style: italic; transition: color .3s; }
+.field.has .field-k { color: var(--ink); }
+.field-k + div { min-height: 24px; }
+.field-name { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: .04em; display: block; margin-bottom: 4px; }
+.entry { font-size: 15px; line-height: 1.5; display: block; opacity: 0; transform: translateX(-4px); transition: opacity .4s, transform .4s; }
+.entry.on { opacity: 1; transform: none; }
+.entry.pending { color: var(--ink-3); font-style: italic; font-family: var(--serif); font-size: 16px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; padding-top: 18px; border-top: 1px dashed var(--rule); }
+.chip {
+  font-family: var(--mono); font-size: 12px; padding: 6px 10px; border-radius: 4px;
+  border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  opacity: 0; transform: translateY(4px); transition: opacity .35s, transform .35s;
+  display: inline-flex; gap: 8px; align-items: center;
+}
+.chip.on { opacity: 1; transform: none; }
+.chip b { font-weight: 500; color: var(--chart); }
+.demo-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 20px; border-top: 1px solid var(--rule-soft); color: var(--ink-3); }
+.replay { font: inherit; background: none; border: 0; color: var(--ink-2); cursor: pointer; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--rule); }
+.replay:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+/* ---------- Sections ---------- */
+section { padding: clamp(80px, 11vw, 160px) 0 0; }
+.sec-head { display: grid; grid-template-columns: 220px 1fr; gap: 32px; border-top: 1px solid var(--ink); padding-top: 20px; margin-bottom: clamp(40px, 6vw, 72px); }
+.sec-head h2 {
+  font-family: var(--serif); font-weight: 300; margin: 0;
+  font-size: clamp(34px, 4.6vw, 64px); line-height: 1.02; letter-spacing: -0.03em; max-width: 18ch;
+}
+.sec-head h2 em { font-style: italic; }
+
+/* Quote */
+.quote { display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
+.quote blockquote { margin: 0; }
+.quote p {
+  font-family: var(--serif); font-weight: 300; margin: 0;
+  font-size: clamp(28px, 3.6vw, 50px); line-height: 1.14; letter-spacing: -0.02em;
+  text-indent: -0.42em;
+}
+.quote p span { color: var(--signal); }
+.quote footer { margin-top: 28px; display: flex; gap: 14px; align-items: center; font-size: 15px; }
+.quote footer .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--paper-deep); border: 1px solid var(--rule); display: grid; place-items: center; font-family: var(--serif); font-size: 17px; }
+.quote footer small { color: var(--ink-2); display: block; font-size: 14px; }
+.figure { font-family: var(--serif); font-weight: 300; font-size: clamp(64px, 9vw, 128px); line-height: .9; letter-spacing: -0.04em; }
+.figure-note { color: var(--ink-2); font-size: 14px; max-width: 18ch; margin-top: 12px; }
+
+/* Why: three numbered columns */
+.why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+.why > div { padding: 28px 28px 8px 0; }
+.why > div + div { padding-left: 28px; border-left: 1px solid var(--rule); }
+.why h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.1; letter-spacing: -0.02em; margin: 18px 0 12px; }
+.why p { margin: 0; color: var(--ink-2); font-size: 16px; }
+.why .specimen { margin-top: 28px; }
+
+.scripts { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 22px; line-height: 1.5; color: var(--ink); }
+.scripts span { transition: color .2s; }
+.scripts span:hover { color: var(--signal); }
+.compare { font-size: 14px; display: grid; gap: 10px; }
+.compare div { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: baseline; }
+.compare s { color: var(--ink-3); text-decoration-color: var(--signal); font-family: var(--serif); font-style: italic; font-size: 17px; }
+.compare .k { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+.price { font-family: var(--serif); font-size: 44px; letter-spacing: -0.03em; line-height: 1; font-weight: 300; }
+.price small { font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: .02em; margin-left: 6px; }
+
+/* Features: ledger */
+.ledger { border-top: 1px solid var(--rule); }
+.row {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px;
+  padding: 32px 0; border-bottom: 1px solid var(--rule); align-items: start;
+}
+.row .n { font-family: var(--mono); font-size: 12px; color: var(--ink-3); padding-top: 8px; }
+.row h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 10px; }
+.row p { margin: 0; color: var(--ink-2); max-width: 40ch; font-size: 16px; }
+.spec { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 18px; font-size: 14px; }
+
+.spec-listen { display: flex; align-items: center; gap: 16px; }
+.spec-listen .wave { height: 28px; gap: 3px; flex: 1; }
+.spec-listen .wave i { width: 3px; background: var(--ink); }
+.spec-listen .t { font-family: var(--mono); font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+
+.spec-speakers { display: grid; gap: 10px; }
+.spec-speakers div { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding-left: 12px; border-left: 2px solid; }
+.spec-speakers .d { border-color: var(--chart); }
+.spec-speakers .p { border-color: var(--signal); }
+
+.slip { font-family: var(--mono); font-size: 12.5px; display: grid; gap: 0; }
+.slip div { display: grid; grid-template-columns: 76px 1fr auto; gap: 12px; padding: 8px 0; border-bottom: 1px dotted var(--rule); }
+.slip div:last-child { border-bottom: 0; }
+.slip .k { color: var(--ink-3); }
+.slip .ok { color: var(--chart); }
+
+.soap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.soap div { padding: 6px 12px 4px; border-left: 1px solid var(--rule-soft); }
+.soap div:first-child { border-left: 0; padding-left: 0; }
+.soap b { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 30px; line-height: 1; display: block; }
+.soap span { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+
+.templates { display: flex; flex-wrap: wrap; gap: 8px; }
+.templates span { border: 1px solid var(--rule); border-radius: 999px; padding: 6px 12px; font-size: 13.5px; background: var(--paper); }
+.templates span.sel { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.templates span.add { border-style: dashed; color: var(--ink-2); background: transparent; }
+
+/* Journal */
+.journal { border-top: 1px solid var(--rule); }
+.post { display: grid; grid-template-columns: 220px minmax(0, 1fr) auto; gap: 32px; padding: 26px 0; border-bottom: 1px solid var(--rule); text-decoration: none; align-items: baseline; }
+.post h3 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -0.02em; line-height: 1.15; transition: color .2s; }
+.post:hover h3 { color: var(--signal); }
+.post .meta { color: var(--ink-3); }
+.post .go { font-family: var(--mono); font-size: 12px; color: var(--ink-3); transition: transform .2s, color .2s; }
+.post:hover .go { transform: translateX(4px); color: var(--ink); }
+
+/* CTA + footer */
+.closing { margin-top: clamp(96px, 12vw, 176px); background: var(--ink); color: var(--sheet); }
+.closing .wrap { padding-top: clamp(64px, 9vw, 120px); padding-bottom: 40px; }
+.closing h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(44px, 7vw, 104px); line-height: .98; letter-spacing: -0.035em; margin: 0; max-width: 14ch; }
+.closing h2 em { color: #f08a63; }
+.closing .lede { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; margin-top: 40px; padding-top: 24px; border-top: 1px solid #3a362f; }
+.closing .lede p { margin: 0; color: #b9b2a4; max-width: 40ch; font-size: 18px; }
+
+.foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.3fr; gap: 32px; margin-top: clamp(80px, 10vw, 140px); padding-top: 28px; border-top: 1px solid #3a362f; font-size: 14px; color: #b9b2a4; }
+.foot h4 { margin: 0 0 14px; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .06em; color: #7e776a; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.foot a { text-decoration: none; transition: color .15s; }
+.foot a:hover { color: var(--sheet); }
+.foot address { font-style: normal; line-height: 1.6; }
+.foot address + h4 { margin-top: 22px; }
+.foot .logo-word { color: var(--sheet); font-size: 30px; }
+.foot .tag { margin-top: 14px; max-width: 26ch; }
+.base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 56px; padding-top: 20px; border-top: 1px solid #3a362f; color: #7e776a; }
+.mark-giant { font-family: var(--serif); font-weight: 300; font-size: clamp(120px, 27vw, 400px); line-height: .78; letter-spacing: -0.05em; color: #26231e; margin-top: 48px; user-select: none; white-space: nowrap; overflow: hidden; }
+
+/* ---------- Reveal ---------- */
+.rv { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+.rv.in { opacity: 1; transform: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .sec-head, .quote { grid-template-columns: 1fr; gap: 20px; }
+  .row { grid-template-columns: 1fr; gap: 14px; }
+  .row .n { padding-top: 0; }
+  .post { grid-template-columns: 1fr auto; gap: 8px 16px; }
+  .post .meta { grid-column: 1 / -1; order: -1; }
+  .why { grid-template-columns: 1fr; }
+  .why > div, .why > div + div { padding: 28px 0; border-left: 0; }
+  .why > div + div { border-top: 1px solid var(--rule); }
+  .foot { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .hero-sub { grid-template-columns: 1fr; }
+  .sheet-body { grid-template-columns: 1fr; }
+  .col + .col { border-left: 0; border-top: 1px solid var(--rule-soft); }
+  .nav-login { display: none; }
+  .demo-caption span:last-child, .hero .eyebrow span { display: none; }
+  .soap b { font-size: 24px; }
+  .foot { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Ekko home">
+      <span class="logo-word">Ekko</span>
+      <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="4" cy="9" r="2" fill="currentColor"/><path d="M8 4.5a6 6 0 0 1 0 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M11.5 2a9.5 9.5 0 0 1 0 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".45"/></svg>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="https://www.ekkomd.com/about-us">About us</a>
+      <a href="https://www.ekkomd.com/blog">Blog</a>
+      <a href="https://www.ekkomd.com/careers">Careers</a>
+      <a href="https://www.ekkomd.com/contact-us">Contact us</a>
+    </nav>
+    <div class="nav-end">
+      <a class="nav-login" href="https://www.ekkomd.com/login">Log in</a>
+      <a class="btn sm" href="#start">Try for free</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-top">
+        <div class="eyebrow rv"><b>Ambient clinical documentation</b><span>for doctors, in every language</span></div>
+        <h1 class="rv">Look at your patient. <em>Ekko</em> writes the note.</h1>
+        <div class="hero-sub rv">
+          <p>Doctors spend more time on paperwork than with patients. Ekko listens to the consultation and turns it into an <strong>accurate, structured note</strong> before the patient has left the room.</p>
+          <div class="hero-cta">
+            <a class="btn" href="#start">Get started for free <span class="arrow">→</span></a>
+            <a class="btn ghost" href="#demo">Watch it work</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo rv" id="demo">
+        <div class="demo-caption mono"><span>Fig. 1 — A consultation, as Ekko hears it and writes it</span><span>Tamil · English</span></div>
+        <div class="sheet" id="sheet">
+          <div class="sheet-head">
+            <span class="patient">Susan Clark</span>
+            <span class="patient-meta">32 · F · Visit 0413</span>
+            <span class="patient-meta">Fri 09:14</span>
+            <div class="rec" aria-live="off">
+              <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+              <span class="rec-dot" aria-hidden="true"></span>
+              <span id="clock">00:00</span>
+            </div>
+          </div>
+          <div class="sheet-body">
+            <div class="col">
+              <div class="col-label mono"><span>Transcript</span><span>Live</span></div>
+              <div class="lines" id="lines"></div>
+            </div>
+            <div class="col">
+              <div class="col-label mono"><span>Note · SOAP</span><span id="status">Drafting</span></div>
+              <div class="note">
+                <div class="field" data-f="s"><span class="field-k">S</span><div><span class="field-name">Subjective</span></div></div>
+                <div class="field" data-f="o"><span class="field-k">O</span><div><span class="field-name">Objective</span></div></div>
+                <div class="field" data-f="a"><span class="field-k">A</span><div><span class="field-name">Assessment</span></div></div>
+                <div class="field" data-f="p"><span class="field-k">P</span><div><span class="field-name">Plan</span></div></div>
+                <div class="actions" id="actions" aria-label="Action items"></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-foot mono">
+            <span>Nothing typed. Nothing dictated.</span>
+            <button class="replay" id="replay" type="button">Replay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonial -->
+  <section>
+    <div class="wrap quote rv">
+      <div>
+        <div class="figure">½</div>
+        <div class="figure-note">the documentation time, by one family physician’s count.</div>
+      </div>
+      <blockquote>
+        <p><span>“</span>Ekko has cut our documentation time in half. What used to take hours after clinic now happens automatically in the background. It’s like having a medically trained assistant.”</p>
+        <footer>
+          <span class="avatar" aria-hidden="true">AP</span>
+          <span>Dr. Arjun Patel<small>Family physician</small></span>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section id="why">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="eyebrow"><b>§ 1</b><span>Why Ekko</span></div>
+        <h2>Built for the clinic as it actually <em>is</em>.</h2>
+      </div>
+      <div class="why">
+        <div class="rv">
+          <div class="eyebrow"><b>01</b><span>The documentation gap</span></div>
+          <h3>Paper misses detail. EMRs add friction.</h3>
+          <p>Handwritten records lose what was said; EMR screens pull attention away from the patient. Ekko turns the conversation itself into the digital record.</p>
+          <div class="specimen compare">
+            <div><span class="k">Handwritten</span><s>c/o CP, ?SOB, f/u</s></div>
+            <div><span class="k">Ekko</span><span>Exertional chest tightness × 3 days; mild breathlessness walking fast. Follow-up in 7 days.</span></div>
+          </div>
+        </div>
+        <div class="rv">
+          <div class="eyebrow"><b>02</b><span>Multilingual by design</span></div>
+          <h3>Patients speak in many tongues, often in one visit.</h3>
+          <p>Ekko captures and documents conversations across languages, even when they are mixed mid-sentence.</p>
+          <div class="specimen scripts" aria-label="Languages">
+            <span>English</span><span lang="ta">தமிழ்</span><span lang="hi">हिन्दी</span><span lang="bn">বাংলা</span><span lang="te">తెలుగు</span><span lang="kn">ಕನ್ನಡ</span><span lang="ml">മലയാളം</span><span lang="mr">मराठी</span><span lang="gu">ગુજરાતી</span><span lang="pa">ਪੰਜਾਬੀ</span><span lang="ur" dir="rtl">اردو</span>
+          </div>
+        </div>
+        <div class="rv">
+          <div class="eyebrow"><b>03</b><span>Affordable for every practitioner</span></div>
+          <h3>Priced around your practice, not a hospital budget.</h3>
+          <p>Custom pricing brings ambient AI within reach of every doctor, from a single-room clinic to a multi-specialty group.</p>
+          <div class="specimen">
+            <div class="price">Your price<small>set with you</small></div>
+            <a class="btn ghost sm" href="https://www.ekkomd.com/contact-us" style="margin-top:18px">Book a demo <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="eyebrow"><b>§ 2</b><span>Key features</span></div>
+        <h2>From conversation to chart, <em>in five steps</em> you never see.</h2>
+      </div>
+      <div class="ledger">
+        <div class="row rv">
+          <div class="n">01 — Listen</div>
+          <div><h3>Real-time ambient scribing</h3><p>Hands-free, live note creation during the consultation. No dictation, no wake word, no laptop between you and the patient.</p></div>
+          <div class="spec spec-listen" aria-hidden="true">
+            <span class="rec-dot"></span>
+            <span class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="t">Listening · 04:12</span>
+          </div>
+        </div>
+        <div class="row rv">
+          <div class="n">02 — Separate</div>
+          <div><h3>Speaker differentiation</h3><p>Practitioner and patient dialogue is separated automatically, so the record reads cleanly and attributes every statement.</p></div>
+          <div class="spec spec-speakers">
+            <div class="d"><span class="who dr">DR</span><span>Does the pain get worse when you exercise?</span></div>
+            <div class="p"><span class="who pt">PT</span><span>Yes, especially when I climb stairs.</span></div>
+          </div>
+        </div>
+        <div class="row rv">
+          <div class="n">03 — Extract</div>
+          <div><h3>Auto action items</h3><p>Prescriptions, follow-ups, lab orders and patient instructions are picked out of the conversation the moment they are said.</p></div>
+          <div class="spec slip">
+            <div><span class="k">Rx</span><span>Amlodipine 5 mg · once daily · 30 days</span><span class="ok">✓</span></div>
+            <div><span class="k">Lab</span><span>ECG, complete blood count</span><span class="ok">✓</span></div>
+            <div><span class="k">Follow-up</span><span>7 days</span><span class="ok">✓</span></div>
+            <div><span class="k">Advice</span><span>Avoid exertion until review</span><span class="ok">✓</span></div>
+          </div>
+        </div>
+        <div class="row rv">
+          <div class="n">04 — Summarize</div>
+          <div><h3>Intelligent summaries</h3><p>Symptoms, diagnoses and care plans are organized and neatly outlined, ready to sign rather than ready to rewrite.</p></div>
+          <div class="spec soap">
+            <div><b>S</b><span>Symptoms</span></div>
+            <div><b>O</b><span>Findings</span></div>
+            <div><b>A</b><span>Diagnosis</span></div>
+            <div><b>P</b><span>Care plan</span></div>
+          </div>
+        </div>
+        <div class="row rv">
+          <div class="n">05 — Fit</div>
+          <div><h3>Customizable templates</h3><p>From SOAP notes to specialty formats, documentation fits the way your practice already works.</p></div>
+          <div class="spec templates">
+            <span class="sel">SOAP</span><span>Follow-up</span><span>Pediatrics</span><span>Gynecology</span><span>Orthopedics</span><span>Psychiatry intake</span><span class="add">+ Your own</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journal -->
+  <section id="journal">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="eyebrow"><b>§ 3</b><span>From the blog</span></div>
+        <h2>Notes on AI, privacy and <em>the craft of care</em>.</h2>
+      </div>
+      <div class="journal">
+        <a class="post rv" href="https://www.ekkomd.com/blog">
+          <span class="meta mono">Updates · Oct 7, 2026 · 8 min</span>
+          <h3>Your patient never agreed to train a chatbot</h3>
+          <span class="go">Read →</span>
+        </a>
+        <a class="post rv" href="https://www.ekkomd.com/blog">
+          <span class="meta mono">Features · Sep 9, 2026 · 6 min</span>
+          <h3>Most AI scribes are just better dictation</h3>
+          <span class="go">Read →</span>
+        </a>
+        <a class="post rv" href="https://www.ekkomd.com/blog">
+          <span class="meta mono">Announcements · Mar 25, 2026 · 9 min</span>
+          <h3>Ekko is live: our ambient AI platform is giving doctors their time back</h3>
+          <span class="go">Read →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Closing + footer -->
+<footer class="closing" id="start">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#7e776a"><b style="color:#b9b2a4">Secure, AI-powered clinical notes</b></div>
+    <h2 style="margin-top:20px">Give the hour after clinic <em>back</em>.</h2>
+    <div class="lede">
+      <p>Built by doctors. Designed for real-world care. Start free, and see your first note write itself today.</p>
+      <div class="hero-cta">
+        <a class="btn light" href="https://www.ekkomd.com/login">Try Ekko for free <span class="arrow">→</span></a>
+        <a class="btn ghost" style="color:var(--sheet);border-color:#3a362f" href="https://www.ekkomd.com/contact-us">Talk to us</a>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div>
+        <span class="logo-word">Ekko</span>
+        <p class="tag">Ambient AI clinical documentation for doctors.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="https://www.ekkomd.com/about-us">About us</a></li>
+          <li><a href="https://www.ekkomd.com/blog">Blog</a></li>
+          <li><a href="https://www.ekkomd.com/careers">Careers</a></li>
+          <li><a href="https://www.ekkomd.com/contact-us">Contact us</a></li>
+          <li><a href="https://www.ekkomd.com/login">Log in</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">DPA</a></li>
+          <li><a href="#">Terms of use and service</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Cancellation and refund</a></li>
+          <li><a href="#">Shipping</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>US office</h4>
+        <address>1795 Landana Dr<br />Concord, CA 94519</address>
+        <h4>India office</h4>
+        <address>70A, New. 116B, Vellalar Street<br />Mogappair, Chennai 600037</address>
+        <h4>Reach us</h4>
+        <address><a href="mailto:info@ekkomd.com">info@ekkomd.com</a><br /><a href="tel:+919500995295">+91 95009 95295</a></address>
+      </div>
+    </div>
+    <div class="base mono"><span>© 2026 Ekko. All rights reserved.</span><span>Concord · Chennai</span></div>
+    <div class="mark-giant" aria-hidden="true">ekko</div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Sticky nav rule
+  const nav = document.getElementById("nav");
+  const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+
+  // ---- Scribe demo ----
+  // Each line: speaker, text (with [[marked]] phrases), optional translation,
+  // then what it writes to the note once spoken.
+  const script = [
+    { who: "dr", text: "Good morning. What brings you in today?" },
+    { who: "pt", text: "I’ve had [[chest tightness]] for the [[past three days]], mostly when I [[climb stairs]].",
+      writes: [["s", "Chest tightness × 3 days, on exertion (stairs)."]] },
+    { who: "dr", text: "Any breathlessness?" },
+    { who: "pt", text: "கொஞ்சம் இருக்கு — [[a little, when I walk fast]].", tr: "ta → en · “A little, yes”",
+      writes: [["s", "Mild breathlessness walking briskly."]] },
+    { who: "dr", text: "BP is [[138 over 88]], pulse [[82]]. Let’s get an [[ECG]] and a [[blood count]].",
+      writes: [["o", "BP 138/88 mmHg · HR 82 bpm."], ["a", "Exertional chest discomfort; rule out stable angina."]],
+      chips: [["Lab", "ECG, CBC"]] },
+    { who: "dr", text: "Start [[amlodipine 5 mg once a day]], avoid heavy exertion, and [[come back in a week]].",
+      writes: [["p", "ECG, CBC. Amlodipine 5 mg OD. Avoid exertion. Review in 7 days."]],
+      chips: [["Rx", "Amlodipine 5 mg OD"], ["Follow-up", "7 days"]] },
+  ];
+
+  const linesEl = document.getElementById("lines");
+  const actionsEl = document.getElementById("actions");
+  const statusEl = document.getElementById("status");
+  const clockEl = document.getElementById("clock");
+  const sheet = document.getElementById("sheet");
+  const fields = Object.fromEntries([...document.querySelectorAll(".field")].map((f) => [f.dataset.f, f]));
+
+  const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  const markup = (s) => esc(s).replace(/\[\[(.+?)\]\]/g, "<mark>$1</mark>");
+  const plain = (s) => s.replace(/\[\[|\]\]/g, "");
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  let run = 0, secs = 0, tick;
+  const fmt = (n) => String(Math.floor(n / 60)).padStart(2, "0") + ":" + String(n % 60).padStart(2, "0");
+
+  function reset() {
+    linesEl.innerHTML = ""; actionsEl.innerHTML = "";
+    Object.values(fields).forEach((f) => {
+      f.classList.remove("has");
+      f.querySelectorAll(".entry").forEach((e) => e.remove());
+      const p = document.createElement("span"); p.className = "entry pending on"; p.textContent = "Listening…";
+      f.lastElementChild.appendChild(p);
+    });
+    statusEl.textContent = "Drafting"; secs = 0; clockEl.textContent = fmt(0);
+    sheet.classList.remove("paused");
+  }
+
+  function addLine(l) {
+    const row = document.createElement("div"); row.className = "line";
+    row.innerHTML = `<span class="who ${l.who}">${l.who.toUpperCase()}</span><div class="said"><span class="txt"></span>${l.tr ? `<span class="tr">${esc(l.tr)}</span>` : ""}</div>`;
+    linesEl.appendChild(row);
+    requestAnimationFrame(() => row.classList.add("on"));
+    return row;
+  }
+
+  function write(key, text) {
+    const f = fields[key]; const body = f.lastElementChild;
+    body.querySelectorAll(".pending").forEach((e) => e.remove());
+    const e = document.createElement("span"); e.className = "entry"; e.textContent = text;
+    body.appendChild(e); f.classList.add("has");
+    requestAnimationFrame(() => e.classList.add("on"));
+  }
+  function chip([k, v]) {
+    const c = document.createElement("span"); c.className = "chip";
+    c.innerHTML = `<b>${esc(k)}</b>${esc(v)}`; actionsEl.appendChild(c);
+    requestAnimationFrame(() => c.classList.add("on"));
+  }
+
+  function finish() {
+    clearInterval(tick); statusEl.textContent = "Ready to sign"; sheet.classList.add("paused");
+  }
+
+  function renderStatic() {
+    reset();
+    script.forEach((l) => {
+      const row = addLine(l); row.classList.add("on");
+      row.querySelector(".txt").innerHTML = markup(l.text);
+      row.querySelectorAll("mark").forEach((m) => m.classList.add("lit"));
+      (l.writes || []).forEach(([k, t]) => write(k, t));
+      (l.chips || []).forEach(chip);
+    });
+    clockEl.textContent = "03:41"; finish();
+    document.querySelectorAll(".entry, .chip").forEach((e) => e.classList.add("on"));
+  }
+
+  async function play() {
+    const id = ++run; reset();
+    clearInterval(tick); tick = setInterval(() => { secs += 7; clockEl.textContent = fmt(secs); }, 1000);
+    await wait(500);
+    for (const l of script) {
+      if (id !== run) return;
+      const row = addLine(l); const txt = row.querySelector(".txt");
+      const full = plain(l.text);
+      for (let i = 1; i <= full.length; i += 2) {
+        if (id !== run) return;
+        txt.innerHTML = esc(full.slice(0, i)) + '<span class="caret"></span>';
+        await wait(l.who === "pt" ? 26 : 20);
+      }
+      txt.innerHTML = markup(l.text);
+      await wait(120);
+      txt.querySelectorAll("mark").forEach((m, i) => setTimeout(() => m.classList.add("lit"), i * 120));
+      await wait(380);
+      for (const [k, t] of l.writes || []) { if (id !== run) return; write(k, t); await wait(260); }
+      for (const c of l.chips || []) { if (id !== run) return; chip(c); await wait(180); }
+      await wait(650);
+    }
+    if (id === run) finish();
+  }
+
+  document.getElementById("replay").addEventListener("click", () => (reduce ? renderStatic() : play()));
+
+  if (reduce) { renderStatic(); return; }
+  // Start when the demo scrolls into view
+  let started = false;
+  new IntersectionObserver((es, obs) => {
+    if (!started && es[0].isIntersecting) { started = true; play(); obs.disconnect(); }
+  }, { threshold: 0.12 }).observe(sheet);
+})();
+</script>
+</body>
+</html>
