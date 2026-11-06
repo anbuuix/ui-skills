@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Ekko — Ambient clinical documentation</title>
+<title>Ekko Landing Page</title>
 <meta name="description" content="Ekko listens to the consultation and writes the clinical note. Ambient AI documentation for doctors, in every language your patients speak." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -60,7 +60,7 @@ img, svg { display: block; }
 
 /* ---------- Nav ---------- */
 .nav {
-  position: sticky; top: 0; z-index: 20;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
   background: color-mix(in srgb, var(--paper) 88%, transparent);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid transparent;
@@ -289,8 +289,7 @@ section { padding: clamp(80px, 11vw, 160px) 0 0; }
 .mark-giant { font-family: var(--serif); font-weight: 300; font-size: clamp(120px, 27vw, 400px); line-height: .78; letter-spacing: -0.05em; color: #26231e; margin-top: 48px; user-select: none; white-space: nowrap; overflow: hidden; }
 
 /* ---------- Reveal ---------- */
-.rv { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
-.rv.in { opacity: 1; transform: none; }
+/* Sections are visible at rest; only the scribe demo animates. */
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
@@ -316,7 +315,6 @@ section { padding: clamp(80px, 11vw, 160px) 0 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .rv { opacity: 1; transform: none; }
 }
 </style>
 </head>
@@ -594,12 +592,6 @@ section { padding: clamp(80px, 11vw, 160px) 0 0; }
   const nav = document.getElementById("nav");
   const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
-
-  // Reveal on scroll
-  const io = new IntersectionObserver((es) => es.forEach((e) => {
-    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-  }), { rootMargin: "0px 0px -8% 0px" });
-  document.querySelectorAll(".rv").forEach((el) => io.observe(el));
 
   // ---- Scribe demo ----
   // Each line: speaker, text (with [[marked]] phrases), optional translation,
